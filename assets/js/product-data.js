@@ -5,7 +5,7 @@ const products = [
     name: "Christmas Cutout Card",
     image: "assets/img/products/christmas_card.webp",
     description: "A warming Christmas card.",
-    price: 14.99,
+    price: 3,
     type: "Cards",
     tags: ["minimalist", "christmas", "card"]
   },
