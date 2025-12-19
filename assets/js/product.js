@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const productId = parseInt(params.get("id"), 10);
+  const productId = params.get("id");
 
   const product = products.find(p => p.id === productId);
 
