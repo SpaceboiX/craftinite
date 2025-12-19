@@ -1,33 +1,30 @@
 // products-data.js
 const products = [
   {
-    id: 1,
-    name: "Cosmic Mug",
-    image: "assets/img/nav/mug.webp",
-    description: "A neon-glow ceramic mug with glitchy cosmic design.",
+    id: "christmas_card",
+    name: "Christmas Cutout Card",
+    image: "assets/img/products/christmas_card.webp",
+    description: "A warming Christmas card.",
     price: 14.99,
-    type: "Mug",
-    category: "Home & Kitchen",
-    tags: ["mug", "ceramic", "cosmic", "neon", "glitch"]
+    type: "Cards",
+    tags: ["minimalist", "christmas", "card"]
   },
   {
-    id: 2,
-    name: "Spaceboi Card",
-    image: "assets/img/nav/cards.webp",
-    description: "Minimalist card with cosmic overlay and pixel font.",
-    price: 4.50,
-    type: "Card",
-    category: "Cards & Gifts",
-    tags: ["card", "minimalist", "cosmic", "pixel", "gift"]
+    id: "lovemark",
+    name: "Lovemark",
+    image: "assets/img/products/lovemark.webp",
+    description: "Minimalist bookmark with a loving style.",
+    price: 1,
+    type: "Bookmarks",
+    tags: ["bookmark", "minimalist", "gift"]
   },
   {
-    id: 3,
-    name: "Glitch Hoodie",
-    image: "assets/img/nav/bookmark.webp",
-    description: "Black hoodie with neon glitch print.",
-    price: 39.99,
-    type: "Hoodie",
-    category: "Clothing",
-    tags: ["hoodie", "glitch", "neon", "streetwear", "spaceboi"]
+    id: "craftinite_mug",
+    name: "Craftinite Mug",
+    image: "assets/img/products/craftinite_mug.webp",
+    description: "Mug holding the Craftinite logo.",
+    price: 12.50,
+    type: "Mugs",
+    tags: ["mug", "craftinite", "ceramic", "gift", "cosmic"]
   }
 ];
