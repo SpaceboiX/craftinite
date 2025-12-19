@@ -2,11 +2,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("product-list");
   const params = new URLSearchParams(window.location.search);
-  const typeFilter = params.get("type"); // e.g. "Cards", "Mugs", "Bookmarks"
+  const typeFilter = params.get("type");
 
   // Function to render products
   function renderProducts(filterType) {
-    container.innerHTML = ""; // clear existing cards
+    container.innerHTML = "";
 
     products
       .filter(p => !filterType || p.type === filterType)
