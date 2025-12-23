@@ -1,10 +1,15 @@
-document.getElementById("login-submit").addEventListener("click", e => {
+document.getElementById("login-submit").addEventListener("submit", e => {
   e.preventDefault();
 
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
 
-  auth.signInWithWithEmailAndPassword(email, password)
-    .then(() => window.location.href = "index.html")
-    .catch(err => alert(err.message));
+  auth.signInWithEmailAndPassword(email, password)
+    .then(user => {
+      localStorage.setItem("user", JSON.stringify(user.user));
+      window.location.href = "index.html";
+    })
+    .catch(err => {
+      alert(err.message);
+    });
 });
