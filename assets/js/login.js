@@ -13,3 +13,20 @@ document.getElementById("login-submit").addEventListener("click", e => {
       alert(err.message);
     });
 });
+
+document.getElementById("forgot-password").addEventListener("click", () => {
+  const email = document.getElementById("login-email").value;
+
+  if (!email) {
+    alert("Please enter your email first.");
+    return;
+  }
+
+  auth.sendPasswordResetEmail(email)
+    .then(() => {
+      alert("Password reset email sent. Check your inbox.");
+    })
+    .catch(err => {
+      alert(err.message);
+    });
+});
