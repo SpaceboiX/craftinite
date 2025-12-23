@@ -19,7 +19,7 @@ fetch("header.html?v=3")
         profile.classList.add("show-profile");
 
         name.textContent = user.displayName || user.email;
-        avatar.src = user.photoURL || "assets/img/icons/default-avatar.png";
+        avatar.src = user.photoURL || "assets/img/icons/profile.webp";
       } else {
         loginBtn.style.display = "block";
         profile.classList.remove("show-profile");
