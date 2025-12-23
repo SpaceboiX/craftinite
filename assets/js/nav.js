@@ -10,19 +10,19 @@ fetch("header.html?v=3")
 
     // Force default state
     loginBtn.style.display = "block";
-    profile.style.display = "none !important";
+    profile.style.display = "none";
 
     // Firebase auth listener
     auth.onAuthStateChanged(user => {
       if (user) {
         loginBtn.style.display = "none";
-        profile.style.display = "flex !important";
+        profile.classList.add("show-profile");
 
         name.textContent = user.displayName || user.email;
         avatar.src = user.photoURL || "assets/img/icons/default-avatar.png";
       } else {
         loginBtn.style.display = "block";
-        profile.style.display = "none";
+        profile.classList.remove("show-profile");
       }
     });
 

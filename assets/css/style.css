@@ -1,0 +1,8 @@
+#header-profile {
+  display: none !important;
+}
+
+#header-profile.show-profile {
+  display: flex !important;
+}
+
