@@ -1,19 +1,18 @@
-fetch("header.html?v=1")
+fetch("header.html?v=3")
   .then(res => res.text())
   .then(html => {
     document.getElementById("header-placeholder").innerHTML = html;
 
-    // Grab elements AFTER injection
     const loginBtn = document.getElementById("header-login");
     const profile = document.getElementById("header-profile");
     const avatar = document.getElementById("profile-avatar");
     const name = document.getElementById("profile-name");
 
-    // Force-correct initial state BEFORE Firebase runs
+    // Force default state
     loginBtn.style.display = "block";
     profile.style.display = "none";
 
-    // Now listen for Firebase auth state
+    // Firebase auth listener
     auth.onAuthStateChanged(user => {
       if (user) {
         loginBtn.style.display = "none";
@@ -27,11 +26,10 @@ fetch("header.html?v=1")
       }
     });
 
-    // Logout handler
+    // Logout
     document.addEventListener("click", e => {
       if (e.target && e.target.id === "logout-btn") {
         auth.signOut().then(() => window.location.href = "index.html");
       }
     });
-  })
-  .catch(err => console.error("Failed to load header:", err));
+  });
