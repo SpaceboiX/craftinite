@@ -10,13 +10,13 @@ fetch("header.html?v=3")
 
     // Force default state
     loginBtn.style.display = "block";
-    profile.style.display = "none";
+    profile.style.display = "none !important";
 
     // Firebase auth listener
     auth.onAuthStateChanged(user => {
       if (user) {
         loginBtn.style.display = "none";
-        profile.style.display = "flex";
+        profile.style.display = "flex !important";
 
         name.textContent = user.displayName || user.email;
         avatar.src = user.photoURL || "assets/img/icons/default-avatar.png";
