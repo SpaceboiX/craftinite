@@ -26,5 +26,14 @@ const products = [
     price: 12.50,
     type: "Mugs",
     tags: ["mug", "craftinite", "ceramic", "gift", "cosmic"]
+  },
+  {
+    id: "dalek_caffeinate_mug",
+    name: "Dalek Caffeinate Mug",
+    image: "assets/img/products/dalek_caffeinate_mug.webp",
+    description: "Dalek yelling to caffeinate.",
+    price: 12.50,
+    type: "Mugs",
+    tags: ["mug", "doctorwho", "ceramic", "gift", "cosmic"]
   }
 ];
