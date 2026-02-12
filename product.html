@@ -36,15 +36,28 @@
 
     <!-- Product Content -->
     <div class="container py-5">
+
+        <!-- Title + Subtext -->
         <h1 id="product-title"></h1>
+        <p id="product-subtext" class="text-muted mb-4"></p>
 
-        <!-- Dynamic carousel + thumbnails will be injected here -->
-        <div id="product-gallery" class="mb-4"></div>
+        <div class="row">
 
-        <!-- Product description -->
-        <p class="mb-4" id="product-description"></p>
+            <!-- LEFT: Gallery -->
+            <div class="col-md-6 mb-4">
+                <div id="product-gallery"></div>
+            </div>
 
-        <button class="btn btn-primary" id="add-to-cart">Add to Cart</button>
+            <!-- RIGHT: Description + Add to Cart -->
+            <div class="col-md-6 d-flex flex-column justify-content-start">
+                <p id="product-description" class="mb-4"></p>
+
+                <button class="btn btn-primary w-100 mt-auto" id="add-to-cart">
+                    Add to Cart
+                </button>
+            </div>
+
+        </div>
     </div>
 
     <!-- Footer -->
