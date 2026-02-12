@@ -14,6 +14,25 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("product-subtext").textContent = product.subtext || "";
   document.getElementById("product-description").textContent = product.description || "";
 
+  // QUANTITY SELECTOR
+  const qtyInput = document.getElementById("qty-input");
+  const qtyMinus = document.getElementById("qty-minus");
+  const qtyPlus = document.getElementById("qty-plus");
+
+  // Load existing quantity from cart
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existingQty = cart.filter(i => i.id === product.id).length;
+  if (existingQty > 0) qtyInput.value = existingQty;
+
+  qtyMinus.addEventListener("click", () => {
+    let val = parseInt(qtyInput.value);
+    if (val > 1) qtyInput.value = val - 1;
+  });
+
+  qtyPlus.addEventListener("click", () => {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+  });
+
   // GALLERY SYSTEM
   const galleryContainer = document.getElementById("product-gallery");
 
@@ -36,10 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const carouselInner = document.getElementById("carousel-inner");
   const thumbnailRow = document.getElementById("thumbnail-row");
 
-  // Load main image first
   const images = [product.image];
 
-  // Load gallery images if folder exists
   if (product.gallery) {
     for (let i = 1; i <= 10; i++) {
       const imgPath = `${product.gallery}${i}.webp`;
@@ -60,13 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
     thumbnailRow.innerHTML = "";
 
     imgList.forEach((src, index) => {
-      // Carousel slide
       const slide = document.createElement("div");
       slide.className = `carousel-item ${index === 0 ? "active" : ""}`;
       slide.innerHTML = `<img src="${src}" class="d-block w-100 rounded">`;
       carouselInner.appendChild(slide);
 
-      // Thumbnails
       const thumb = document.createElement("div");
       thumb.className = "col-3 col-md-2 mb-2";
       thumb.innerHTML = `
@@ -83,19 +98,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // ADD TO CART
   document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const qty = parseInt(qtyInput.value);
 
-    // Push the product
-    cart.push(product);
+    // Remove existing entries for this product
+    cart = cart.filter(i => i.id !== product.id);
 
-    // Save
+    // Add new quantity
+    for (let i = 0; i < qty; i++) {
+      cart.push(product);
+    }
+
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Auto-refresh the cart dropdown
+    // Refresh dropdown
     if (typeof updateCartDropdown === "function") {
       updateCartDropdown();
     }
 
-    // Feedback
-    alert(`${product.name} added to cart!`);
+    // Show toast
+    const toastEl = document.getElementById("cart-toast");
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
   });
 });
