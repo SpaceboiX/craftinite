@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Title + Description
-  document.getElementById("product-title").textContent = product.name;
-  document.getElementById("product-description").textContent = product.description;
+  document.getElementById("product-title").textContent = product.name || "";
+  document.getElementById("product-subtext").textContent = product.subtext || "";
+  document.getElementById("product-description").textContent = product.description || "";
 
   // GALLERY SYSTEM
   const galleryContainer = document.getElementById("product-gallery");
