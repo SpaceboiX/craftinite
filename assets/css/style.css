@@ -6,3 +6,13 @@
   display: flex !important;
 }
 
+#product-gallery .carousel-inner img {
+    max-width: 25%;
+    margin: 0 auto;
+    display: block;
+}
+
+#thumbnail-row img {
+    max-width: 50%;
+    margin: 0 auto;
+}
