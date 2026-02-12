@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   ${product.name}
                 </a>
               </h5>
-              <p class="card-text">${product.description}</p>
+              <p class="card-text">${product.subtext}</p>
               <p class="fw-bold">£${product.price.toFixed(2)}</p>
               <p class="text-muted">Type: ${product.type}</p>
               <p class="small">Tags: ${product.tags.join(", ")}</p>

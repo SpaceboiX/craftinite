@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Title
   document.getElementById("product-title").textContent = product.name;
 
+  // Subtext
+  document.getElementById("product-subtext").textContent = product.subtext;
+  
   // Description
   document.getElementById("product-description").textContent = product.description;
 
