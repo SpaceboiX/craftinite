@@ -1,4 +1,4 @@
-// products-data.js
+// product-data.js
 const products = [
   {
     id: "christmas_card",
