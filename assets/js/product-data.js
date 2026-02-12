@@ -34,14 +34,14 @@ const products = [
     tags: ["mug", "craftinite", "ceramic", "gift", "cosmic"]
   },
   {
-    id: "dalek_caffeinate_mug",
-    name: "Dalek Caffeinate Mug",
-    image: "assets/img/products/dalek_caffeinate_mug.webp",
-	gallery: "assets/img/gallery/dalek_caffeinate_mug/",
-    subtext: "Dalek yelling to caffeinate.",
-	description: "Dalek yelling to caffeinate.",
+    id: "caffeinate_mug",
+    name: "Caffeinate Mug",
+    image: "assets/img/products/caffeinate_mug.webp",
+	gallery: "assets/img/gallery/caffeinate_mug/",
+    subtext: "Make sure to caffeinate.",
+	description: "Some people can't survive without caffeine.",
     price: 12.50,
     type: "Mugs",
-    tags: ["mug", "doctorwho", "ceramic", "gift", "cosmic"]
+    tags: ["mug", "ceramic", "gift", "cosmic"]
   }
 ];
