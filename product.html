@@ -48,12 +48,17 @@
                 <div id="product-gallery"></div>
             </div>
 
-            <!-- RIGHT: Description + Quantity -->
+            <!-- RIGHT: Description Box + Price + Quantity -->
             <div class="col-md-6 d-flex flex-column justify-content-start">
 
-                <p id="product-description" class="mb-4"></p>
+                <!-- Description Box -->
+                <div id="description-box" class="p-3 mb-3 rounded"
+                     style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <p id="product-description" class="mb-2"></p>
+                    <h3 id="product-price" class="fw-bold mb-0"></h3>
+                </div>
 
-                <!-- Quantity Selector (always visible) -->
+                <!-- Quantity Selector -->
                 <div class="d-flex align-items-center mb-3" id="quantity-wrapper">
                     <button class="btn btn-outline-light" id="qty-minus">−</button>
                     <input type="number" id="qty-input" class="form-control mx-2 text-center" value="0" min="0" style="width: 80px;">
