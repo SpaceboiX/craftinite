@@ -125,3 +125,5 @@ function updateCartDropdown() {
     });
   });
 }
+
+window.addEventListener("storage", updateCartDropdown);
