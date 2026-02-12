@@ -17,6 +17,13 @@
     margin: 0 auto;
 }
 
+#description-box {
+    min-height: 180px; /* adjust to taste */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .cart-item {
   display: flex;
   gap: 10px;
