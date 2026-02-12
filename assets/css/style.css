@@ -16,3 +16,31 @@
     max-width: 50%;
     margin: 0 auto;
 }
+
+.cart-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-item-title {
+  font-weight: 600;
+}
+
+.cart-item-subtext {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.cart-remove {
+  font-size: 0.8rem;
+  color: #ff6b6b;
+  cursor: pointer;
+}
