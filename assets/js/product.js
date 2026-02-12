@@ -15,28 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("product-description").textContent = product.description || "";
 
     // QUANTITY SELECTOR
-    const qtyWrapper = document.getElementById("quantity-wrapper");
     const qtyInput = document.getElementById("qty-input");
     const qtyMinus = document.getElementById("qty-minus");
     const qtyPlus = document.getElementById("qty-plus");
-    const addBtn = document.getElementById("add-to-cart");
 
     // Load existing quantity from cart
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingQty = cart.filter(i => i.id === product.id).length;
 
-    if (existingQty > 0) {
-        qtyWrapper.style.display = "flex";
-        addBtn.style.display = "none";
-        qtyInput.value = existingQty;
-    } else {
-        qtyWrapper.style.display = "none";
-        addBtn.style.display = "block";
-    }
+    qtyInput.value = existingQty; // default 0 if not in cart
 
     qtyMinus.addEventListener("click", () => {
         let val = parseInt(qtyInput.value);
-        if (val > 1) qtyInput.value = val - 1;
+        if (val > 0) qtyInput.value = val - 1;
         updateCartQuantity();
     });
 
@@ -45,41 +36,36 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartQuantity();
     });
 
+    qtyInput.addEventListener("change", () => {
+        if (qtyInput.value < 0) qtyInput.value = 0;
+        updateCartQuantity();
+    });
+
     function updateCartQuantity() {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const newQty = parseInt(qtyInput.value);
 
-        // Remove all existing entries for this product
+        const oldQty = cart.filter(i => i.id === product.id).length;
+
+        // Remove all existing entries
         cart = cart.filter(i => i.id !== product.id);
 
         // Add new quantity
-        const qty = parseInt(qtyInput.value);
-        for (let i = 0; i < qty; i++) cart.push(product);
+        for (let i = 0; i < newQty; i++) {
+            cart.push(product);
+        }
 
         localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Toast only when going from 0 → 1
+        if (oldQty === 0 && newQty > 0) {
+            const toastEl = document.getElementById("cart-toast");
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
 
         if (typeof updateCartDropdown === "function") updateCartDropdown();
     }
-
-    // ADD TO CART
-    addBtn.addEventListener("click", () => {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-        // Add one
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Switch UI to quantity mode
-        qtyWrapper.style.display = "flex";
-        addBtn.style.display = "none";
-        qtyInput.value = 1;
-
-        if (typeof updateCartDropdown === "function") updateCartDropdown();
-
-        // Toast
-        const toastEl = document.getElementById("cart-toast");
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-    });
 
     // GALLERY SYSTEM
     const galleryContainer = document.getElementById("product-gallery");
