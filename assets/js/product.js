@@ -13,12 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("product-title").textContent = product.name || "";
   document.getElementById("product-subtext").textContent = product.subtext || "";
   document.getElementById("product-description").textContent = product.description || "";
-  document.getElementById("product-price").textContent = `£${product.price.toFixed(2)}` || "£0.00";
 
   // GALLERY SYSTEM
   const galleryContainer = document.getElementById("product-gallery");
 
-  // Build Bootstrap carousel wrapper
   galleryContainer.innerHTML = `
     <div id="productCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
       <div class="carousel-inner" id="carousel-inner"></div>
@@ -68,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       slide.innerHTML = `<img src="${src}" class="d-block w-100 rounded">`;
       carouselInner.appendChild(slide);
 
-      // Thumbnails (desktop)
+      // Thumbnails
       const thumb = document.createElement("div");
       thumb.className = "col-3 col-md-2 mb-2";
       thumb.innerHTML = `
@@ -82,11 +80,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Add to cart
+  // ADD TO CART
   document.getElementById("add-to-cart").addEventListener("click", () => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Push the product
     cart.push(product);
+
+    // Save
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Auto-refresh the cart dropdown
+    if (typeof updateCartDropdown === "function") {
+      updateCartDropdown();
+    }
+
+    // Feedback
     alert(`${product.name} added to cart!`);
   });
 });
