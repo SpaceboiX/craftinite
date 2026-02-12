@@ -48,13 +48,17 @@
                 <div id="product-gallery"></div>
             </div>
 
-            <!-- RIGHT: Description + Price + Add to Cart -->
+            <!-- RIGHT: Description + Quantity + Add to Cart -->
             <div class="col-md-6 d-flex flex-column justify-content-start">
 
-                <p id="product-description" class="mb-3"></p>
+                <p id="product-description" class="mb-4"></p>
 
-                <!-- PRICE -->
-                <h3 id="product-price" class="fw-bold mb-4"></h3>
+                <!-- Quantity Selector -->
+                <div class="d-flex align-items-center mb-3" id="quantity-wrapper">
+                    <button class="btn btn-outline-light" id="qty-minus">−</button>
+                    <input type="number" id="qty-input" class="form-control mx-2 text-center" value="1" min="1" style="width: 80px;">
+                    <button class="btn btn-outline-light" id="qty-plus">+</button>
+                </div>
 
                 <button class="btn btn-primary w-100 mt-auto" id="add-to-cart">
                     Add to Cart
@@ -72,6 +76,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Toast Container -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div id="cart-toast" class="toast text-bg-success border-0" role="alert">
+            <div class="toast-body">
+                Added to cart!
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
