@@ -48,21 +48,18 @@
                 <div id="product-gallery"></div>
             </div>
 
-            <!-- RIGHT: Description + Quantity + Add to Cart -->
+            <!-- RIGHT: Description + Quantity -->
             <div class="col-md-6 d-flex flex-column justify-content-start">
 
                 <p id="product-description" class="mb-4"></p>
 
-                <!-- Quantity Selector (hidden until item is in cart) -->
-                <div class="d-flex align-items-center mb-3" id="quantity-wrapper" style="display:none;">
+                <!-- Quantity Selector (always visible) -->
+                <div class="d-flex align-items-center mb-3" id="quantity-wrapper">
                     <button class="btn btn-outline-light" id="qty-minus">−</button>
-                    <input type="number" id="qty-input" class="form-control mx-2 text-center" value="1" min="1" style="width: 80px;">
+                    <input type="number" id="qty-input" class="form-control mx-2 text-center" value="0" min="0" style="width: 80px;">
                     <button class="btn btn-outline-light" id="qty-plus">+</button>
                 </div>
 
-                <button class="btn btn-primary w-100 mt-auto" id="add-to-cart">
-                    Add to Cart
-                </button>
             </div>
 
         </div>
