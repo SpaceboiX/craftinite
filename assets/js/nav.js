@@ -32,11 +32,19 @@ fetch("header.html?v=3")
         auth.signOut().then(() => window.location.href = "index.html");
       }
     });
+
+    // ⭐ RUN CART DROPDOWN UPDATE *AFTER* HEADER LOADS
+    updateCartDropdown();
   });
+
+
+// ---------------- CART DROPDOWN ----------------
 
 function updateCartDropdown() {
   const dropdown = document.getElementById("cart-dropdown");
   const countBadge = document.getElementById("cart-count");
+
+  if (!dropdown || !countBadge) return; // Header not loaded yet
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -76,6 +84,3 @@ function updateCartDropdown() {
     });
   });
 }
-
-// Run on load
-document.addEventListener("DOMContentLoaded", updateCartDropdown);
