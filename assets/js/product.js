@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("product-title").textContent = product.name || "";
   document.getElementById("product-subtext").textContent = product.subtext || "";
   document.getElementById("product-description").textContent = product.description || "";
+  document.getElementById("product-price").textContent = `£${product.price.toFixed(2)}` || "£0.00";
 
   // GALLERY SYSTEM
   const galleryContainer = document.getElementById("product-gallery");
