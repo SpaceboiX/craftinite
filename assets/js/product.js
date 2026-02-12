@@ -15,8 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Description
   document.getElementById("product-description").textContent = product.description;
 
-  // Gallery
+  // Main Image (from product-data.js)
   const gallery = document.getElementById("product-gallery");
+
+  const mainImg = new Image();
+  mainImg.src = product.image;
+  mainImg.alt = product.name;
+  mainImg.className = "col-md-4 mb-3 img-fluid";
+  gallery.appendChild(mainImg);
+
+  // OPTIONAL: Additional gallery images (if you add folders later)
   const basePath = `assets/img/${product.id}/`;
 
   for (let i = 1; i <= 5; i++) {
