@@ -33,3 +33,49 @@ fetch("header.html?v=3")
       }
     });
   });
+
+function updateCartDropdown() {
+  const dropdown = document.getElementById("cart-dropdown");
+  const countBadge = document.getElementById("cart-count");
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  countBadge.textContent = cart.length;
+
+  if (cart.length === 0) {
+    dropdown.innerHTML = `<p class="text-muted text-center mb-0">Your cart is empty</p>`;
+    return;
+  }
+
+  dropdown.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <div class="flex-grow-1">
+        <div class="cart-item-title">${item.name}</div>
+        <div class="cart-item-subtext">${item.subtext || ""}</div>
+        <div class="text-white">£${item.price.toFixed(2)}</div>
+      </div>
+      <div class="cart-remove" data-index="${index}">Remove</div>
+    `;
+
+    dropdown.appendChild(div);
+  });
+
+  // Remove handler
+  dropdown.querySelectorAll(".cart-remove").forEach(btn => {
+    btn.addEventListener("click", () => {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(btn.dataset.index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDropdown();
+    });
+  });
+}
+
+// Run on load
+document.addEventListener("DOMContentLoaded", updateCartDropdown);
