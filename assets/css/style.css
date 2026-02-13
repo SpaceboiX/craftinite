@@ -37,6 +37,7 @@
 #heroCarousel .carousel-item {
     height: 600px;
     background: #111;
+    position: relative;
 }
 
 #heroCarousel .carousel-item .slide-wrapper {
@@ -48,8 +49,8 @@
 }
 
 #heroCarousel .carousel-item img {
-    width: 100%;
-    height: auto;
+    height: 100%;
+    width: auto;
     object-fit: contain;
 }
 
