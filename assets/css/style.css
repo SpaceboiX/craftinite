@@ -24,6 +24,10 @@
     justify-content: space-between;
 }
 
+.card-img-top {
+    cursor: pointer;
+}
+
 .cart-item {
   display: flex;
   gap: 10px;
