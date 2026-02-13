@@ -36,8 +36,12 @@
                 <div class="col-12 col-lg-10 mx-auto">
                     <style>
                         #heroCarousel .carousel-item {
-                            height: 600px;              /* lock height so arrows don't move */
-                            background: #111;           /* remove flashing box */
+                            height: 600px;          /* lock height so arrows don't move */
+                            background: #111;       /* remove flashing box */
+                        }
+
+                        #heroCarousel .carousel-item .slide-wrapper {
+                            height: 100%;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -181,8 +185,8 @@
                 slide.style.cursor = "pointer";
 
                 slide.innerHTML = `
-                    <div style="width: 100%; height: 600px; background: #111; display: flex; justify-content: center; align-items: center;">
-                        <img src="${product.image}" 
+                    <div class="slide-wrapper">
+                        <img src="${product.image}"
                              class="d-block"
                              style="max-height: 100%; max-width: 100%; object-fit: contain;">
                     </div>
