@@ -34,7 +34,17 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-10 mx-auto">
-                    <div id="hero-products" class="d-flex flex-wrap justify-content-center gap-4"></div>
+                    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="hero-carousel-inner"></div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,28 +160,28 @@
     <script src="assets/js/nav.js"></script>
     <script src="assets/js/product-data.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const container = document.getElementById("hero-products");
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("hero-products");
 
-        products.forEach(product => {
-            const div = document.createElement("div");
-            div.style.position = "relative";
-            div.style.flex = "0 0 30%";
-            div.style.cursor = "pointer";
+            products.forEach(product => {
+                const div = document.createElement("div");
+                div.style.position = "relative";
+                div.style.flex = "0 0 30%";
+                div.style.cursor = "pointer";
 
-            div.innerHTML = `
-                <img src="${product.image}" 
-                     class="img-fluid rounded shadow"
-                     style="width: 100%; object-fit: cover;">
-            `;
+                div.innerHTML = `
+                    <img src="${product.image}" 
+                         class="img-fluid rounded shadow"
+                         style="width: 100%; object-fit: cover;">
+                `;
 
-            div.addEventListener("click", () => {
-                window.location.href = "product.html?id=" + product.id;
+                div.addEventListener("click", () => {
+                    window.location.href = "product.html?id=" + product.id;
+                });
+
+                container.appendChild(div);
             });
-
-            container.appendChild(div);
         });
-    });
     </script>
 </body>
 
