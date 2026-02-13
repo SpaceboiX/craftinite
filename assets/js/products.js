@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             col.innerHTML = `
                 <div class="card h-100 bg-dark text-white border-secondary">
-                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}" onclick="window.location.href='product.html?id=${product.id}'">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">${product.name}</h5>
                         <p class="text-muted mb-2">${product.subtext || ""}</p>
