@@ -185,12 +185,12 @@
                 slide.style.cursor = "pointer";
 
                 slide.innerHTML = `
-                    <div class="slide-wrapper">
-                        <img src="${product.image}"
-                             class="d-block"
-                             style="max-height: 100%; max-width: 100%; object-fit: contain;">
-                    </div>
-                `;
+<div class="slide-wrapper">
+    <img src="${product.image}"
+         class="d-block"
+         style="max-height: 100%; max-width: 100%; object-fit: contain;">
+</div>
+                `.trim();
 
                 slide.addEventListener("click", () => {
                     window.location.href = "product.html?id=" + product.id;
