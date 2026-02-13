@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showToast(message) {
-        // Create toast container if not present
         let container = document.getElementById("cart-toast-container");
         if (!container) {
             container = document.createElement("div");
@@ -73,23 +72,19 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(container);
         }
 
-        // Create toast element
         const toastEl = document.createElement("div");
         toastEl.className = "toast text-bg-success border-0";
-        toastEl.innerHTML = `
-            <div class="toast-body">${message}</div>
-        `;
+        toastEl.innerHTML = `<div class="toast-body">${message}</div>`;
 
         container.appendChild(toastEl);
 
         const toast = new bootstrap.Toast(toastEl);
         toast.show();
 
-        // Remove after hidden
         toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
     }
 
-    // Category filter
+    // FIXED: category filter listener
     categorySelect.addEventListener("change", () => {
         renderProducts(categorySelect.value);
     });
