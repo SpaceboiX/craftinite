@@ -8,7 +8,7 @@ fetch("header.html?v=3")
     const avatar = document.getElementById("profile-avatar");
     const name = document.getElementById("profile-name");
 
-    // Force default state
+    // Default state
     loginBtn.style.display = "block";
     profile.style.display = "none";
 
@@ -24,6 +24,14 @@ fetch("header.html?v=3")
         loginBtn.style.display = "block";
         profile.classList.remove("show-profile");
       }
+
+      // ⭐ After auth state is applied, update cart + run checkout if needed
+      updateCartDropdown();
+
+      // ⭐ If checkout page defines runCheckout(), call it now
+      if (typeof runCheckout === "function") {
+        runCheckout();
+      }
     });
 
     // Logout
@@ -32,9 +40,6 @@ fetch("header.html?v=3")
         auth.signOut().then(() => window.location.href = "index.html");
       }
     });
-
-    // ⭐ RUN CART DROPDOWN UPDATE *AFTER* HEADER LOADS
-    updateCartDropdown();
   });
 
 
