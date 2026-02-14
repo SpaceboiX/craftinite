@@ -8,6 +8,7 @@ const products = [
     subtext: "A warming Christmas card.",
 	description: "A warming Christmas card.",
     price: 3,
+	weight: 20,
     category: "Cards",
     tags: ["minimalist", "christmas", "card"]
   },
@@ -19,6 +20,7 @@ const products = [
     subtext: "Minimalist bookmark with a loving style.",
 	description: "Minimalist bookmark with a loving style.",
     price: 1,
+	weight: 10,
     category: "Bookmarks",
     tags: ["bookmark", "minimalist", "gift"]
   },
@@ -30,6 +32,7 @@ const products = [
     subtext: "Mug holding the Craftinite logo.",
 	description: "Mug holding the Craftinite logo.",
     price: 12.50,
+	weight: 350,
     category: "Mugs",
     tags: ["mug", "craftinite", "ceramic", "gift", "cosmic"]
   },
@@ -41,6 +44,7 @@ const products = [
     subtext: "Make sure to caffeinate.",
 	description: "Some people can't survive without caffeine.",
     price: 12.50,
+	weight: 350,
     category: "Mugs",
     tags: ["mug", "ceramic", "gift", "cosmic"]
   }
