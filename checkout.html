@@ -56,7 +56,8 @@
             return 1.50 + (weight * 0.01);
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
+        // ⭐ FIX: Wrap checkout logic in a function so nav.js can call it AFTER header loads
+        function runCheckout() {
             const checkoutContainer = document.getElementById("checkout-items");
 
             const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -98,6 +99,14 @@
             document.getElementById("total-weight").textContent = totalWeight;
             document.getElementById("shipping").textContent = shipping.toFixed(2);
             document.getElementById("grand-total").textContent = grandTotal.toFixed(2);
+        }
+
+        // ⭐ If nav.js loads the header and then calls runCheckout(), this will run at the right time.
+        // ⭐ If nav.js does NOT call it, this fallback ensures checkout still works:
+        document.addEventListener("DOMContentLoaded", () => {
+            if (document.getElementById("header-placeholder").innerHTML.trim() !== "") {
+                runCheckout();
+            }
         });
     </script>
 </body>
