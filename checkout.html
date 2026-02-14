@@ -56,7 +56,7 @@
             return 1.50 + (weight * 0.01);
         }
 
-        // ⭐ FIX: Wrap checkout logic in a function so nav.js can call it AFTER header loads
+        // ⭐ Checkout logic (nav.js will call this AFTER header + auth load)
         function runCheckout() {
             const checkoutContainer = document.getElementById("checkout-items");
 
@@ -100,14 +100,6 @@
             document.getElementById("shipping").textContent = shipping.toFixed(2);
             document.getElementById("grand-total").textContent = grandTotal.toFixed(2);
         }
-
-        // ⭐ If nav.js loads the header and then calls runCheckout(), this will run at the right time.
-        // ⭐ If nav.js does NOT call it, this fallback ensures checkout still works:
-        document.addEventListener("DOMContentLoaded", () => {
-            if (document.getElementById("header-placeholder").innerHTML.trim() !== "") {
-                runCheckout();
-            }
-        });
     </script>
 </body>
 
