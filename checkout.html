@@ -46,19 +46,19 @@
     </footer>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/nav.js"></script>
     <script src="assets/js/product-data.js"></script>
+    <script src="assets/js/nav.js"></script>
 
     <script>
-        // Example shipping formula:
-        // £1.50 base + £0.01 per gram
+        // Shipping formula
         function calculateShipping(weight) {
             return 1.50 + (weight * 0.01);
         }
 
-        // ⭐ Checkout logic (nav.js will call this AFTER header + auth load)
+        // ⭐ Checkout logic (nav.js will call this AFTER header + auth + cart load)
         function runCheckout() {
             const checkoutContainer = document.getElementById("checkout-items");
+            checkoutContainer.innerHTML = ""; // Clear old content
 
             const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -66,7 +66,7 @@
             let totalWeight = 0;
 
             cart.forEach(item => {
-                const product = products.find(p => p.id === item.id);
+                const product = products.find(p => p.id == item.id);
                 if (!product) return;
 
                 const itemTotal = product.price * item.quantity;
