@@ -13,18 +13,6 @@ const products = [
     tags: ["minimalist", "christmas", "card"]
   },
   {
-    id: "lovemark",
-    name: "Lovemark",
-    image: "assets/img/products/lovemark.webp",
-	gallery: "assets/img/gallery/lovemark/",
-    subtext: "Minimalist bookmark with a loving style.",
-	description: "Minimalist bookmark with a loving style.",
-    price: 1,
-	weight: 10,
-    category: "Bookmarks",
-    tags: ["bookmark", "minimalist", "gift"]
-  },
-  {
     id: "craftinite_mug",
     name: "Craftinite Mug",
     image: "assets/img/products/craftinite_mug.webp",
