@@ -3,6 +3,7 @@ const products = [
   {
     id: "christmas_card",
     name: "Christmas Cutout Card",
+	etsy: "https://www.etsy.com/uk/listing/4425956323/personalised-cutout-cards-birthdays",
     image: "assets/img/products/christmas_card.webp",
 	gallery: "assets/img/gallery/christmas_card/",
     subtext: "A warming Christmas card.",
