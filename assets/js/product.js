@@ -13,58 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("product-title").textContent = product.name || "";
     document.getElementById("product-subtext").textContent = product.subtext || "";
     document.getElementById("product-description").textContent = product.description || "";
+    document.getElementById("product-price").textContent = `£${product.price.toFixed(2)}`;
 
-    // QUANTITY SELECTOR
-    const qtyInput = document.getElementById("qty-input");
-    const qtyMinus = document.getElementById("qty-minus");
-    const qtyPlus = document.getElementById("qty-plus");
-
-    // Load existing quantity from cart
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingQty = cart.filter(i => i.id === product.id).length;
-
-    qtyInput.value = existingQty; // default 0 if not in cart
-
-    qtyMinus.addEventListener("click", () => {
-        let val = parseInt(qtyInput.value);
-        if (val > 0) qtyInput.value = val - 1;
-        updateCartQuantity();
-    });
-
-    qtyPlus.addEventListener("click", () => {
-        qtyInput.value = parseInt(qtyInput.value) + 1;
-        updateCartQuantity();
-    });
-
-    qtyInput.addEventListener("change", () => {
-        if (qtyInput.value < 0) qtyInput.value = 0;
-        updateCartQuantity();
-    });
-
-    function updateCartQuantity() {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const newQty = parseInt(qtyInput.value);
-
-        const oldQty = cart.filter(i => i.id === product.id).length;
-
-        // Remove all existing entries
-        cart = cart.filter(i => i.id !== product.id);
-
-        // Add new quantity
-        for (let i = 0; i < newQty; i++) {
-            cart.push(product);
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Toast only when going from 0 → 1
-        if (oldQty === 0 && newQty > 0) {
-            const toastEl = document.getElementById("cart-toast");
-            const toast = new bootstrap.Toast(toastEl);
-            toast.show();
-        }
-
-        if (typeof updateCartDropdown === "function") updateCartDropdown();
+    // Etsy Button
+    const etsyBtn = document.getElementById("etsy-button");
+    if (product.etsy) {
+        etsyBtn.href = product.etsy;
+    } else {
+        etsyBtn.style.display = "none"; // Hide if no Etsy link
     }
 
     // GALLERY SYSTEM
