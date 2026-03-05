@@ -21,13 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p class="text-muted mb-2">${product.subtext || ""}</p>
                         <p class="fw-bold mb-3">£${product.price.toFixed(2)}</p>
 
-                        <div class="mt-auto d-flex gap-2">
-                            <a href="${product.etsy}" target="_blank" class="btn btn-primary w-50">
+                        <div class="mt-auto">
+                            <a href="${product.etsy}" target="_blank" class="btn btn-primary w-100">
                                 Buy on Etsy
                             </a>
-                            <button class="btn btn-primary w-50 add-to-cart-btn" data-id="${product.id}">
-                                Add to Cart
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -35,56 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             productList.appendChild(col);
         });
-
-        attachAddToCartEvents();
     }
 
-    function attachAddToCartEvents() {
-        document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const id = btn.dataset.id;
-                const product = products.find(p => p.id === id);
-
-                let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-                // Add one more of this product
-                cart.push(product);
-                localStorage.setItem("cart", JSON.stringify(cart));
-
-                // Update mini-cart
-                if (typeof updateCartDropdown === "function") {
-                    updateCartDropdown();
-                }
-
-                // Toast popup
-                showToast(`${product.name} added to cart!`);
-            });
-        });
-    }
-
-    function showToast(message) {
-        let container = document.getElementById("cart-toast-container");
-        if (!container) {
-            container = document.createElement("div");
-            container.id = "cart-toast-container";
-            container.className = "position-fixed bottom-0 end-0 p-3";
-            container.style.zIndex = "9999";
-            document.body.appendChild(container);
-        }
-
-        const toastEl = document.createElement("div");
-        toastEl.className = "toast text-bg-success border-0";
-        toastEl.innerHTML = `<div class="toast-body">${message}</div>`;
-
-        container.appendChild(toastEl);
-
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-
-        toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
-    }
-
-    // FIXED: category filter listener
+    // Category filter
     categorySelect.addEventListener("change", () => {
         renderProducts(categorySelect.value);
     });
