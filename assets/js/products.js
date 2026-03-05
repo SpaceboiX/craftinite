@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p class="fw-bold mb-3">£${product.price.toFixed(2)}</p>
 
                         <div class="mt-auto d-flex gap-2">
-                            <a href="product.html?id=${product.id}" class="btn btn-outline-light w-50">
-                                View
+                            <a href="${product.etsy}" target="_blank" class="btn btn-primary w-50">
+                                Buy on Etsy
                             </a>
                             <button class="btn btn-primary w-50 add-to-cart-btn" data-id="${product.id}">
                                 Add to Cart
