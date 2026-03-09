@@ -45,8 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const carouselInner = document.getElementById("carousel-inner");
     const thumbnailRow = document.getElementById("thumbnail-row");
 
-    const images = [product.image];
-
     if (product.gallery) {
         for (let i = 1; i <= 10; i++) {
             const imgPath = `${product.gallery}${i}.webp`;
