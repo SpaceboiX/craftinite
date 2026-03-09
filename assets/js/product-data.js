@@ -21,7 +21,7 @@ const products = [
 	description: "Armoured man with alien baby on his shoulder.",
     price: 10.00,
     category: "Mugs",
-    tags: ["mug", "craftinite", "ceramic", "gift", "cosmic", "alien", "armour]
+    tags: ["mug", "craftinite", "ceramic", "gift", "cosmic", "alien", "armour"]
   },
   {
     id: "droids",
