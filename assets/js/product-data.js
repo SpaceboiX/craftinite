@@ -1,18 +1,6 @@
 // product-data.js
 const products = [
   {
-    id: "christmas_card",
-    name: "Christmas Cutout Card",
-	etsy: "https://www.etsy.com/uk/listing/4425956323/personalised-cutout-cards-birthdays",
-    image: "assets/img/products/christmas_card.webp",
-	gallery: "assets/img/gallery/christmas_card/",
-    subtext: "A warming Christmas card.",
-	description: "A warming Christmas card.",
-    price: 3,
-    category: "Cards",
-    tags: ["minimalist", "christmas", "card"]
-  },
-  {
     id: "armour_man_alien_baby",
     name: "Armour Man Alien Baby Mug",
     image: "assets/img/gallery/mugs/armour_man_alien_baby/1.webp",
