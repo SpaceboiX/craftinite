@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // GALLERY SYSTEM
     const galleryContainer = document.getElementById("product-gallery");
+	let images = [];
 
     galleryContainer.innerHTML = `
         <div id="productCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
