@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Deadpool Unicorn Coaster",
+    "id": "DP01C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Marvel", "Deadpool"]
+  },
+  {
+    "name": "TARDIS Coaster",
+    "id": "DW01C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Doctor Who", "Blue Box", "TARDIS"]
+  },
+  {
+    "name": "Monsters Coaster",
+    "id": "DW02C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Doctor Who", "Monsters", "Dalek", "Silence", "Davros", "Cyberman", "Robot", "Sontaran", "Weeping Angel", "Zygon", "Ice Warrior", "Lizard", "Silurian"]
+  },
+  {
+    "name": "Cyberman Delete Coaster",
+    "id": "DW03C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Doctor Who", "Cyberman", "Delete"]
+  },
+  {
+    "name": "Weeping Angel Coaster",
+    "id": "DW04C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Doctor Who", "Weeping Angel", "Dont Blink", "TARDIS", "Blue Box"]
+  },
+  {
+    "name": "Dalek Exterminate Coaster",
+    "id": "DW05C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Doctor Who", "Dalek", "Exterminate"]
+  },
+  {
+    "name": "LEGO Batman Coaster",
+    "id": "LBM01C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["LEGO", "Batman"]
+  },
+  {
+    "name": "LEGO Batman Joker",
+    "id": "LBM02C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["LEGO", "Batman", "Joker"]
+  },
+  {
+    "name": "Star Wars Mandalorian and Grogu Coaster",
+    "id": "SWML01C",
+    "type": "Coaster",
+    "price": 5.00,
+    "weight": 100,
+    "description": "description",
+    "tags": ["Star Wars", "Mandalorian", "Grogu", "Baby Yoda"]
+  }
+]

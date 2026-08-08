@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>craftinite</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/product-page.css">
+</head>
+
+<body><nav class="navbar navbar-expand-md bg-dark navigation-clean navbar-dark">
+    <div class="container">
+
+        <!-- Logo -->
+        <a href="/" class="navbar-brand">
+            <img src="assets/img/banner.webp" width="224" height="80" />
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navcol-1" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Products -->
+                <li class="nav-item">
+                    <a class="nav-link inactive" href="/">Products</a>
+                </li>
+
+                <!-- TV/Films Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        TV/Films
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Marvel">Marvel</a>
+                        <a class="dropdown-item" data-tag="Transformers">Transformers</a>
+                        <a class="dropdown-item" data-tag="Star Wars">Star Wars</a>
+                        <a class="dropdown-item" data-tag="Doctor Who">Doctor Who</a>
+                    </div>
+                </li>
+
+                <!-- Games Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        Games
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Portal">Portal</a>
+                        <a class="dropdown-item" data-tag="Batman Arkham">Batman Arkham</a>
+                        <a class="dropdown-item" data-tag="R.E.P.O">R.E.P.O</a>
+                    </div>
+                </li>
+
+                <!-- ⭐ CART DROPDOWN -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link cart-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        <img src="assets/img/cart.webp" width="26" height="26" />
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-cart">
+
+                        <!-- Cart items -->
+                        <div id="cart-preview"></div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Total price -->
+                        <div class="cart-total text-center">
+                            Total: £<span id="cart-total">0.00</span>
+                        </div>
+
+                        <!-- Checkout -->
+                        <a class="dropdown-item text-center checkout-btn" href="checkout.html">
+                            Checkout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav><div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carousel-1" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner"></div>
+
+                <div>
+                    <a class="carousel-control-prev" role="button" data-bs-slide="prev" href="#carousel-1">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" role="button" data-bs-slide="next" href="#carousel-1">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+
+                <div class="carousel-indicators"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6 product-column">
+            <h1>Product Name</h1>
+            <p class="text-muted">Category: Category</p>
+            <p class="price">£0.00</p>
+            <p class="description">Description</p>
+
+            <!-- ⭐ UPDATED: Cart container wrapper -->
+            <div class="add-to-cart-container">
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Correct JSON loading -->
+<script>
+fetch("assets/js/products.json")
+    .then(res => res.json())
+    .then(products => initProductPage(products))
+    .catch(err => console.error("Failed to load products.json", err));
+</script>
+
+<script>
+(function() {
+  function safeUpdateCart() {
+    try {
+      // If there are multiple #cart-preview nodes, pick the one inside the visible nav
+      const previews = Array.from(document.querySelectorAll('#cart-preview'));
+      let preview = null;
+      if (previews.length === 1) {
+        preview = previews[0];
+      } else if (previews.length > 1) {
+        // prefer the one inside a visible nav.navbar
+        preview = previews.find(p => p.closest('nav.navbar')) || previews[0];
+      }
+
+      // If the expected cart elements exist, call updateCartHeader
+      const countEl = document.querySelector('nav.navbar #cart-count');
+      const totalEl = document.querySelector('#cart-total');
+      if (countEl && preview && totalEl && typeof updateCartHeader === 'function') {
+        updateCartHeader();
+        return true;
+      }
+      // fallback: still call updateCartHeader if function exists (defensive)
+      if (typeof updateCartHeader === 'function') {
+        updateCartHeader();
+        return true;
+      }
+    } catch (err) {
+      console.warn('safeUpdateCart error', err);
+    }
+    return false;
+  }
+
+  function whenReady(cb) {
+    // If DOM ready and products already loaded, run immediately
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      if (Array.isArray(window.allProducts) && window.allProducts.length) {
+        cb();
+        return;
+      }
+    }
+
+    // Listen for products ready event first
+    window.addEventListener('products:loaded', function onLoaded() {
+      window.removeEventListener('products:loaded', onLoaded);
+      cb();
+    }, { once: true });
+
+    // Also ensure DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // If products already loaded by this point, cb will run via products:loaded handler
+      // otherwise, keep polling below
+    });
+
+    // Poll as a fallback for up to 3 seconds
+    let tries = 0;
+    const poll = setInterval(() => {
+      tries++;
+      if (Array.isArray(window.allProducts) && window.allProducts.length && document.querySelector('nav.navbar #cart-count')) {
+        clearInterval(poll);
+        cb();
+      } else if (tries > 30) {
+        clearInterval(poll);
+      }
+    }, 100);
+  }
+
+  whenReady(() => {
+    // Try immediately, then repeat a few times to cover late DOM mutations
+    safeUpdateCart();
+    let attempts = 0;
+    const t = setInterval(() => {
+      attempts++;
+      safeUpdateCart();
+      if (attempts > 10) clearInterval(t);
+    }, 200);
+  });
+})();
+</script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/product-page.js"></script>
+    <script src="assets/js/products.js"></script>
+    <script src="assets/js/cart.js"></script>
+</body>
+
+</html>

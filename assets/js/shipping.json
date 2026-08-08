@@ -1,0 +1,23 @@
+{
+  "UK": {
+    "standard": {
+      "base": 2.00,
+      "perGram": 0.005
+    },
+    "tracked": {
+      "base": 3.50,
+      "perGram": 0.007
+    }
+  },
+
+  "US": {
+    "standard": {
+      "base": 4.00,
+      "perGram": 0.010
+    },
+    "tracked": {
+      "base": 6.00,
+      "perGram": 0.015
+    }
+  }
+}
