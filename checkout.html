@@ -148,7 +148,6 @@
                         </div>
                     </div>
 
-                    <!-- Country -->
                     <div class="mb-3">
                         <label class="form-label">Country</label>
                         <select id="checkout-country" class="form-control">
@@ -159,7 +158,6 @@
                         </select>
                     </div>
 
-                    <!-- Shipping Method -->
                     <div class="mb-3">
                         <label class="form-label">Shipping Method</label>
                         <select id="checkout-shipping-method" class="form-control">
@@ -184,18 +182,15 @@
 
                 <div class="card-body" id="checkout-summary">
 
-                    <!-- Cart items will be injected here -->
                     <div id="checkout-items"></div>
 
                     <hr>
 
-                    <!-- Shipping -->
                     <div class="d-flex justify-content-between mb-2">
                         <strong>Shipping:</strong>
                         <strong>£<span id="checkout-shipping">0.00</span></strong>
                     </div>
 
-                    <!-- Total -->
                     <div class="d-flex justify-content-between">
                         <strong>Total:</strong>
                         <strong>£<span id="checkout-total">0.00</span></strong>
@@ -217,28 +212,14 @@
 
                     <hr>
 
-                    <!-- Google Pay / Apple Pay -->
-                    <h6 class="mb-3">Google Pay / Apple Pay</h6>
-                    <div id="payment-request-button" class="mb-4"></div>
-
-                    <hr>
-
-                    <!-- Stripe Card -->
-                    <h6 class="mb-3">Card Payment</h6>
-                    <form id="stripe-form">
-                        <div id="card-element" class="form-control mb-3"></div>
-                        <button class="btn btn-primary w-100" id="stripe-submit">
-                            Pay with Card
-                        </button>
-                    </form>
+                    <!-- Stripe -->
+                    <h6 class="mb-3">Pay with Stripe</h6>
+                    <button id="stripe-pay" class="btn btn-primary w-100 mb-3">
+                        Pay with Stripe
+                    </button>
 
                 </div>
             </div>
-
-            <!-- Place Order Button -->
-            <button class="btn btn-success w-100 py-2" id="checkout-submit">
-                Place Order
-            </button>
 
         </div>
 
@@ -250,7 +231,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="assets/js/email.js"></script>
     <script src="assets/js/cart.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Afj6dx0QjF2OSsuRKkwc1GXZQZHCJ4rplKmmfuhcKD8QK0VPTMJ5K5QlELj2Q8c--JejWBpmBBOxohAn&amp;currency=GBP"></script>
     <script src="assets/js/checkout.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 </body>
 
 </html>
