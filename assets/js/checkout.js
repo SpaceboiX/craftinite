@@ -1,12 +1,12 @@
 // -----------------------------
-// checkout.js - robust init (with weight-based shipping + quantity controls + EmailJS)
+// checkout.js - PayPal only + customer receipt
 // -----------------------------
 
 let shippingRules = {};
 
 // Load shipping.json
 function loadShippingRules() {
-    return fetch('/assets/js/shipping.json')
+    return fetch('assets/js/shipping.json')
         .then(res => res.json())
         .then(data => shippingRules = data)
         .catch(err => console.error("Failed to load shipping.json:", err));
@@ -173,13 +173,26 @@ function buildOrderObject(customer) {
     };
 }
 
-// Send order email via EmailJS
+// Admin Email (you)
 async function sendOrderEmail(order) {
     return emailjs.send("service_craftinite", "template_craftinite", {
         customer_name: order.customer.name,
         customer_email: order.customer.email,
         customer_phone: order.customer.phone,
         customer_address: `${order.customer.address1}, ${order.customer.city}, ${order.customer.postcode}, ${order.customer.country}`,
+        order_items: order.items.map(i => `${i.qty} × ${i.name} (£${(i.qty * i.price).toFixed(2)})`).join("\n"),
+        order_subtotal: order.subtotal.toFixed(2),
+        order_shipping: order.shipping.toFixed(2),
+        order_total: order.total.toFixed(2),
+        order_timestamp: order.timestamp
+    });
+}
+
+// Customer Receipt Email
+async function sendCustomerReceipt(order) {
+    return emailjs.send("service_craftinite", "template_customer_receipt", {
+        customer_name: order.customer.name,
+        customer_email: order.customer.email,
         order_items: order.items.map(i => `${i.qty} × ${i.name} (£${(i.qty * i.price).toFixed(2)})`).join("\n"),
         order_subtotal: order.subtotal.toFixed(2),
         order_shipping: order.shipping.toFixed(2),
@@ -215,89 +228,47 @@ function validateCheckout() {
     return fields;
 }
 
-function setupCheckoutSubmit() {
-    const btn = document.getElementById("checkout-submit");
-    if (!btn) return;
+// -----------------------------
+// Payment Integration (PayPal only)
+// -----------------------------
+function initPayments() {
 
-    btn.addEventListener("click", async () => {
-        const customer = validateCheckout();
-        if (!customer) return;
+    paypal.Buttons({
 
-        const order = buildOrderObject(customer);
-        console.log("ORDER OBJECT:", order);
+        createOrder: (data, actions) => {
+            const customer = validateCheckout();
+            if (!customer) return;
 
-        try {
-            await sendOrderEmail(order);
-            alert("Order sent! Payment integration coming next.");
-        } catch (err) {
-            console.error(err);
-            alert("There was a problem sending the order email.");
-        }
-    });
-}
+            const order = buildOrderObject(customer);
 
-paypal.Buttons({
-    createOrder: function(data, actions) {
-        const order = buildOrderObject(customer);
-
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: order.total.toFixed(2)
-                },
-                description: "Craftinite Order"
-            }]
-        });
-    },
-
-    onApprove: async function(data, actions) {
-        const details = await actions.order.capture();
-
-        // Send order email
-        await sendOrderEmail(buildOrderObject(customer));
-
-        // Clear cart
-        localStorage.removeItem("cart");
-
-        // Redirect
-        window.location.href = "/thankyou.html";
-    },
-
-    onError: function(err) {
-        console.error("PayPal error:", err);
-        alert("There was a problem with PayPal.");
-    }
-}).render('#paypal-button-container');
-
-const stripeBtn = document.getElementById("stripe-pay");
-const stripe = Stripe("YOUR_STRIPE_PUBLISHABLE_KEY");
-
-stripeBtn.addEventListener("click", async () => {
-    const order = buildOrderObject(customer);
-
-    // Create a Stripe Checkout session via Stripe's client-only mode
-    const session = await fetch("https://api.stripe.com/v1/checkout/sessions", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer YOUR_STRIPE_SECRET_KEY",
-            "Content-Type": "application/x-www-form-urlencoded"
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: order.total.toFixed(2) },
+                    description: "Craftinite Order"
+                }]
+            });
         },
-        body: new URLSearchParams({
-            "success_url": "https://craftinite.co.uk/thankyou.html",
-            "cancel_url": "https://craftinite.co.uk/checkout.html",
-            "mode": "payment",
-            "line_items[0][price_data][currency]": "gbp",
-            "line_items[0][price_data][product_data][name]": "Craftinite Order",
-            "line_items[0][price_data][unit_amount]": Math.round(order.total * 100),
-            "line_items[0][quantity]": 1
-        })
-    }).then(r => r.json());
 
-    await sendOrderEmail(order);
-    localStorage.removeItem("cart");
+        onApprove: async (data, actions) => {
+            const customer = validateCheckout();
+            const order = buildOrderObject(customer);
 
-    stripe.redirectToCheckout({ sessionId: session.id });
-});
+            await actions.order.capture();
+
+            await sendOrderEmail(order);        // admin email
+            await sendCustomerReceipt(order);   // customer receipt
+
+            localStorage.removeItem("cart");
+            window.location.href = "/thankyou.html";
+        },
+
+        onError: (err) => {
+            console.error("PayPal error:", err);
+            alert("There was a problem with PayPal.");
+        }
+
+    }).render('#paypal-button-container');
+}
 
 // -----------------------------
 // Initialization
@@ -307,29 +278,8 @@ stripeBtn.addEventListener("click", async () => {
         await loadShippingRules();
         updateCartHeader();
         loadCheckoutCart();
-        setupCheckoutSubmit();
+        initPayments();
     }
 
-    if (Array.isArray(window.allProducts) && window.allProducts.length) {
-        document.addEventListener('DOMContentLoaded', initOnce, { once: true });
-        if (document.readyState !== 'loading') initOnce();
-    } else {
-        window.addEventListener('products:loaded', () => {
-            document.addEventListener('DOMContentLoaded', initOnce, { once: true });
-            if (document.readyState !== 'loading') initOnce();
-        }, { once: true });
-    }
-
-    window.addEventListener('storage', (e) => {
-        if (e.key === 'cart') {
-            loadCheckoutCart();
-            updateCartHeader();
-        }
-    });
-
-    document.addEventListener('change', (e) => {
-        if (e.target.id === "checkout-country" || e.target.id === "checkout-shipping-method") {
-            loadCheckoutCart();
-        }
-    });
+    document.addEventListener('DOMContentLoaded', initOnce, { once: true });
 })();
