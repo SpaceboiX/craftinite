@@ -236,6 +236,69 @@ function setupCheckoutSubmit() {
     });
 }
 
+paypal.Buttons({
+    createOrder: function(data, actions) {
+        const order = buildOrderObject(customer);
+
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: order.total.toFixed(2)
+                },
+                description: "Craftinite Order"
+            }]
+        });
+    },
+
+    onApprove: async function(data, actions) {
+        const details = await actions.order.capture();
+
+        // Send order email
+        await sendOrderEmail(buildOrderObject(customer));
+
+        // Clear cart
+        localStorage.removeItem("cart");
+
+        // Redirect
+        window.location.href = "/thankyou.html";
+    },
+
+    onError: function(err) {
+        console.error("PayPal error:", err);
+        alert("There was a problem with PayPal.");
+    }
+}).render('#paypal-button-container');
+
+const stripeBtn = document.getElementById("stripe-pay");
+const stripe = Stripe("YOUR_STRIPE_PUBLISHABLE_KEY");
+
+stripeBtn.addEventListener("click", async () => {
+    const order = buildOrderObject(customer);
+
+    // Create a Stripe Checkout session via Stripe's client-only mode
+    const session = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer YOUR_STRIPE_SECRET_KEY",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            "success_url": "https://craftinite.co.uk/thankyou.html",
+            "cancel_url": "https://craftinite.co.uk/checkout.html",
+            "mode": "payment",
+            "line_items[0][price_data][currency]": "gbp",
+            "line_items[0][price_data][product_data][name]": "Craftinite Order",
+            "line_items[0][price_data][unit_amount]": Math.round(order.total * 100),
+            "line_items[0][quantity]": 1
+        })
+    }).then(r => r.json());
+
+    await sendOrderEmail(order);
+    localStorage.removeItem("cart");
+
+    stripe.redirectToCheckout({ sessionId: session.id });
+});
+
 // -----------------------------
 // Initialization
 // -----------------------------
