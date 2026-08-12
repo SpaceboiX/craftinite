@@ -91,81 +91,19 @@
 
     <div class="row">
 
-        <!-- LEFT SIDE: CUSTOMER + SHIPPING -->
+        <!-- LEFT SIDE: now empty card space (keeps layout clean) -->
         <div class="col-md-7">
 
-            <!-- Customer Information -->
+            <!-- Removed Customer Information -->
+            <!-- Removed Shipping Address -->
+            <!-- Removed Shipping Method -->
+
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Customer Information</h5>
+                    <h5 class="mb-0">Information</h5>
                 </div>
-                <div class="card-body">
-
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="checkout-name" class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Email Address</label>
-                        <input type="email" id="checkout-email" class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Phone Number</label>
-                        <input type="text" id="checkout-phone" class="form-control">
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Shipping Address -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="mb-0">Shipping Address</h5>
-                </div>
-                <div class="card-body">
-
-                    <div class="mb-3">
-                        <label class="form-label">Address Line 1</label>
-                        <input type="text" id="checkout-address1" class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Address Line 2</label>
-                        <input type="text" id="checkout-address2" class="form-control">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">City</label>
-                            <input type="text" id="checkout-city" class="form-control">
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Postcode</label>
-                            <input type="text" id="checkout-postcode" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Country</label>
-                        <select id="checkout-country" class="form-control">
-                            <option value="UK">United Kingdom</option>
-                            <option value="US">United States</option>
-                            <option value="EU">European Union</option>
-                            <option value="Canada">Canada</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Shipping Method</label>
-                        <select id="checkout-shipping-method" class="form-control">
-                            <option value="standard">Standard Shipping</option>
-                            <option value="tracked">Tracked Shipping</option>
-                        </select>
-                    </div>
-
+                <div class="card-body text-muted">
+                    PayPal will collect your name, email, phone number, and shipping address.
                 </div>
             </div>
 
@@ -209,7 +147,6 @@
                     <!-- PayPal Smart Buttons -->
                     <div id="paypal-button-container" class="mb-4"></div>
 
-                    <!-- Powered by PayPal -->
                     <div class="text-center text-muted small">
                         Powered by PayPal
                     </div>
