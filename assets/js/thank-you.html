@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>craftinite</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+
+<body><nav class="navbar navbar-expand-md bg-dark navigation-clean navbar-dark">
+    <div class="container">
+
+        <!-- Logo -->
+        <a href="/" class="navbar-brand">
+            <img src="assets/img/banner.webp" width="224" height="80" />
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navcol-1" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Products -->
+                <li class="nav-item">
+                    <a class="nav-link inactive" href="/">Products</a>
+                </li>
+
+                <!-- TV/Films Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        TV/Films
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Marvel">Marvel</a>
+                        <a class="dropdown-item" data-tag="Transformers">Transformers</a>
+                        <a class="dropdown-item" data-tag="Star Wars">Star Wars</a>
+                        <a class="dropdown-item" data-tag="Doctor Who">Doctor Who</a>
+                    </div>
+                </li>
+
+                <!-- Games Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        Games
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Portal">Portal</a>
+                        <a class="dropdown-item" data-tag="Batman Arkham">Batman Arkham</a>
+                        <a class="dropdown-item" data-tag="R.E.P.O">R.E.P.O</a>
+                    </div>
+                </li>
+
+                <!-- ⭐ CART DROPDOWN -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link cart-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        <img src="assets/img/cart.webp" width="26" height="26" />
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-cart">
+
+                        <!-- Cart items -->
+                        <div id="cart-preview"></div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Total price -->
+                        <div class="cart-total text-center">
+                            Total: £<span id="cart-total">0.00</span>
+                        </div>
+
+                        <!-- Checkout -->
+                        <a class="dropdown-item text-center checkout-btn" href="checkout.html">
+                            Checkout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You – Craftinite</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .thankyou-card {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .thankyou-icon {
+            font-size: 64px;
+            color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="thankyou-card">
+    <div class="thankyou-icon">✔</div>
+    <h1 class="mt-3">Thank You for Your Order!</h1>
+    <p class="lead mt-3">
+        Your payment has been received and your order is now being processed.
+    </p>
+
+    <p class="text-muted">
+        A confirmation email has been sent to you with your receipt.
+    </p>
+
+    <a href="/" class="btn btn-primary mt-4">Return to Home</a>
+</div>
+
+<script>
+    // Extra safety: clear cart if user returns here manually
+    localStorage.removeItem("cart");
+</script>
+
+</body>
+</html>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/products.js"></script>
+    <script src="assets/js/cart.js"></script>
+</body>
+
+</html>

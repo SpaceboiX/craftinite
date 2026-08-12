@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>craftinite</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/checkout.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+
+<body><nav class="navbar navbar-expand-md bg-dark navigation-clean navbar-dark">
+    <div class="container">
+
+        <!-- Logo -->
+        <a href="/" class="navbar-brand">
+            <img src="assets/img/banner.webp" width="224" height="80" />
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navcol-1" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Products -->
+                <li class="nav-item">
+                    <a class="nav-link inactive" href="/">Products</a>
+                </li>
+
+                <!-- TV/Films Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        TV/Films
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Marvel">Marvel</a>
+                        <a class="dropdown-item" data-tag="Transformers">Transformers</a>
+                        <a class="dropdown-item" data-tag="Star Wars">Star Wars</a>
+                        <a class="dropdown-item" data-tag="Doctor Who">Doctor Who</a>
+                    </div>
+                </li>
+
+                <!-- Games Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        Games
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Portal">Portal</a>
+                        <a class="dropdown-item" data-tag="Batman Arkham">Batman Arkham</a>
+                        <a class="dropdown-item" data-tag="R.E.P.O">R.E.P.O</a>
+                    </div>
+                </li>
+
+                <!-- ⭐ CART DROPDOWN -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link cart-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        <img src="assets/img/cart.webp" width="26" height="26" />
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-cart">
+
+                        <!-- Cart items -->
+                        <div id="cart-preview"></div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Total price -->
+                        <div class="cart-total text-center">
+                            Total: £<span id="cart-total">0.00</span>
+                        </div>
+
+                        <!-- Checkout -->
+                        <a class="dropdown-item text-center checkout-btn" href="checkout.html">
+                            Checkout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav><div class="container py-5">
+
+    <h1 class="mb-4">Checkout</h1>
+
+    <div class="row">
+
+        <!-- LEFT SIDE -->
+        <div class="col-md-7">
+
+            <!-- Shipping Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Shipping</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Country</label>
+                        <select id="checkout-country" class="form-control">
+                            <option value="UK">United Kingdom</option>
+                            <option value="US">United States</option>
+                            <option value="EU">European Union</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Shipping Method</label>
+                        <select id="checkout-shipping-method" class="form-control">
+                            <option value="standard">Standard Shipping</option>
+                            <option value="tracked">Tracked Shipping</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE: ORDER SUMMARY + PAYMENT -->
+        <div class="col-md-5">
+
+            <!-- Order Summary -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+
+                <div class="card-body" id="checkout-summary">
+
+                    <div id="checkout-items"></div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <strong>Shipping:</strong>
+                        <strong>£<span id="checkout-shipping">0.00</span></strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <strong>£<span id="checkout-total">0.00</span></strong>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Payment</h5>
+                </div>
+                <div class="card-body">
+
+                    <!-- PayPal Smart Buttons -->
+                    <div id="paypal-button-container" class="mb-4"></div>
+
+                    <!-- Powered by PayPal -->
+                    <div class="text-center text-muted small">
+                        Powered by PayPal
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/products.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="assets/js/email.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAxomacD2ZgXHiIj4w_Qzc78TrZZVEzDhrxqoT275feYAbV-_llcv1Uma8UG0DLVEYzo6GOHUNir-h6ck&amp;currency=GBP"></script>
+    <script src="assets/js/checkout.js"></script>
+</body>
+
+</html>

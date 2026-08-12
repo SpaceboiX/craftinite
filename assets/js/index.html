@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>craftinite</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/scroll.css">
+</head>
+
+<body><nav class="navbar navbar-expand-md bg-dark navigation-clean navbar-dark">
+    <div class="container">
+
+        <!-- Logo -->
+        <a href="/" class="navbar-brand">
+            <img src="assets/img/banner.webp" width="224" height="80" />
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-1">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navcol-1" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Products -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Products</a>
+                </li>
+
+                <!-- TV/Films Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        TV/Films
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Marvel">Marvel</a>
+                        <a class="dropdown-item" data-tag="Transformers">Transformers</a>
+                        <a class="dropdown-item" data-tag="Star Wars">Star Wars</a>
+                        <a class="dropdown-item" data-tag="Doctor Who">Doctor Who</a>
+                    </div>
+                </li>
+
+                <!-- Games Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        Games
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-tag="Portal">Portal</a>
+                        <a class="dropdown-item" data-tag="Batman Arkham">Batman Arkham</a>
+                        <a class="dropdown-item" data-tag="R.E.P.O">R.E.P.O</a>
+                    </div>
+                </li>
+
+                <!-- ⭐ CART DROPDOWN -->
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link cart-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                        <img src="assets/img/cart.webp" width="26" height="26" />
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-cart">
+
+                        <!-- Cart items -->
+                        <div id="cart-preview"></div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- Total price -->
+                        <div class="cart-total text-center">
+                            Total: £<span id="cart-total">0.00</span>
+                        </div>
+
+                        <!-- Checkout -->
+                        <a class="dropdown-item text-center checkout-btn" href="checkout.html">
+                            Checkout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav><div class="container mt-4">
+
+    <!-- Search Bar -->
+    <div class="row mb-3">
+        <div class="col">
+            <input id="search-input" type="text" class="form-control" placeholder="Search Craftinite...">
+            <div id="active-tag-badge" class="active-tag-badge" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Category Buttons -->
+    <div class="btn-group mb-4" role="group">
+        <button class="btn btn-outline-primary" data-category="All">All</button>
+        <button class="btn btn-outline-primary" data-category="3D Print">3D Prints</button>
+        <button class="btn btn-outline-primary" data-category="Mug">Mugs</button>
+        <button class="btn btn-outline-primary" data-category="Coaster">Coasters</button>
+    </div>
+
+    <!-- 3D Prints -->
+    <section class="product-section gallery-mode" data-type="3D Print">
+        <h2 class="mt-4">3D Prints</h2>
+
+        <div class="scroll-container">
+            <button class="scroll-btn gallery-left">&lt;</button>
+
+            <div class="scroll-wrapper">
+                <div class="scroll-row" id="section-3dprints"></div>
+            </div>
+
+            <button class="scroll-btn gallery-right">&gt;</button>
+        </div>
+
+        <div class="vertical-container" id="vertical-3dprints"></div>
+    </section>
+
+    <!-- Ceramic Mugs -->
+    <section class="product-section gallery-mode" data-type="Mug">
+        <h2 class="mt-4">Mugs</h2>
+
+        <div class="scroll-container">
+            <button class="scroll-btn gallery-left">&lt;</button>
+
+            <div class="scroll-wrapper">
+                <div class="scroll-row" id="section-mugs"></div>
+            </div>
+
+            <button class="scroll-btn gallery-right">&gt;</button>
+        </div>
+
+        <div class="vertical-container" id="vertical-mugs"></div>
+    </section>
+
+    <!-- Ceramic Coasters -->
+    <section class="product-section gallery-mode" data-type="Coaster">
+        <h2 class="mt-4">Coasters</h2>
+
+        <div class="scroll-container">
+            <button class="scroll-btn gallery-left">&lt;</button>
+
+            <div class="scroll-wrapper">
+                <div class="scroll-row" id="section-coasters"></div>
+            </div>
+
+            <button class="scroll-btn gallery-right">&gt;</button>
+        </div>
+
+        <div class="vertical-container" id="vertical-coasters"></div>
+    </section>
+
+</div>
+
+<!-- ⭐ CATEGORY FILTERING -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll("[data-category]").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const cat = btn.dataset.category;
+
+            // Use the global allProducts loaded by products.js
+            let list;
+
+            if (cat === "All") {
+                list = allProducts;
+            } else {
+                list = allProducts.filter(p => p.type === cat);
+            }
+
+            // ⭐ Re-render products
+            renderProducts(list);
+
+            // ⭐ Re-attach cart UI
+            setupIndexCartButtons();
+        });
+    });
+
+});
+</script>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/products.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/categories.js"></script>
+    <script src="assets/js/scroll.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/tags.js"></script>
+</body>
+
+</html>
