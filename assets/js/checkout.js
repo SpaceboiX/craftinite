@@ -1,5 +1,5 @@
 // -----------------------------
-// checkout.js - Shipping (country + method) + PayPal
+// checkout.js - Shipping (country + method) + PayPal itemized cart
 // -----------------------------
 
 let shippingRules = {};
@@ -87,6 +87,7 @@ function loadCheckoutCart() {
 
         return {
             id,
+            name: product.name,
             qty,
             price: product.price,
             weight: product.weight
@@ -143,16 +144,14 @@ function setupCheckoutQtyControls() {
     });
 }
 
-// Build order object using PayPal data
+// Build order object (NO shipping address)
 function buildOrderObjectFromPayPal(orderData) {
     const payer = orderData.payer;
-    const shipping = orderData.purchase_units[0].shipping.address;
 
     return {
         customer: {
             name: `${payer.name.given_name} ${payer.name.surname}`,
-            email: payer.email_address,
-            fullAddress: `${shipping.address_line_1}, ${shipping.admin_area_2}, ${shipping.postal_code}, ${shipping.country_code}`
+            email: payer.email_address
         },
         items: window.cartItems,
         subtotal: window.cartSubtotal,
@@ -167,7 +166,6 @@ async function sendOrderEmail(order) {
     return emailjs.send("service_craftinite", "template_craftinite", {
         customer_name: order.customer.name,
         customer_email: order.customer.email,
-        customer_address: order.customer.fullAddress,
         order_items: order.items.map(i => `${i.qty} × ${i.name}`).join("\n"),
         order_subtotal: order.subtotal.toFixed(2),
         order_shipping: order.shipping.toFixed(2),
@@ -195,22 +193,51 @@ function initPayments() {
     paypal.Buttons({
 
         createOrder: (data, actions) => {
+
+            const paypalItems = window.cartItems.map(item => {
+                return {
+                    name: item.name,
+                    unit_amount: {
+                        currency_code: "GBP",
+                        value: item.price.toFixed(2)
+                    },
+                    quantity: item.qty.toString()
+                };
+            });
+
             return actions.order.create({
                 purchase_units: [{
-                    amount: { value: window.cartTotal.toFixed(2) },
-                    description: window.cartItems.map(i => `${i.qty}× ${i.name}`).join(", ")
+                    amount: {
+                        currency_code: "GBP",
+                        value: window.cartTotal.toFixed(2),
+                        breakdown: {
+                            item_total: {
+                                currency_code: "GBP",
+                                value: window.cartSubtotal.toFixed(2)
+                            },
+                            shipping: {
+                                currency_code: "GBP",
+                                value: window.cartShipping.toFixed(2)
+                            }
+                        }
+                    },
+                    items: paypalItems
                 }]
             });
         },
 
         onApprove: async (data, actions) => {
-            const orderData = await actions.order.capture();
-            const order = buildOrderObjectFromPayPal(orderData);
+            try {
+                const orderData = await actions.order.capture();
+                const order = buildOrderObjectFromPayPal(orderData);
 
-            await sendOrderEmail(order);
-            await sendCustomerReceipt(order);
+                await sendOrderEmail(order);
+                await sendCustomerReceipt(order);
 
-            localStorage.removeItem("cart");
+            } catch (err) {
+                console.error("Order processing error:", err);
+            }
+
             window.location.href = "/thank-you.html";
         },
 
@@ -242,7 +269,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadCheckoutCart();
     initPayments();
 
-    // ⭐ Recalculate shipping when user changes country or method
     document.getElementById("checkout-country").addEventListener("change", loadCheckoutCart);
     document.getElementById("checkout-shipping-method").addEventListener("change", loadCheckoutCart);
 });
