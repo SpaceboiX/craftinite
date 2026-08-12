@@ -91,15 +91,35 @@
 
     <div class="row">
 
-        <!-- LEFT SIDE (cards removed, layout preserved) -->
+        <!-- LEFT SIDE -->
         <div class="col-md-7">
 
+            <!-- Shipping Section -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Information</h5>
+                    <h5 class="mb-0">Shipping</h5>
                 </div>
-                <div class="card-body text-muted">
-                    PayPal will collect your name, email, phone number, and shipping address.
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Country</label>
+                        <select id="checkout-country" class="form-control">
+                            <option value="UK">United Kingdom</option>
+                            <option value="US">United States</option>
+                            <option value="EU">European Union</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Shipping Method</label>
+                        <select id="checkout-shipping-method" class="form-control">
+                            <option value="standard">Standard Shipping</option>
+                            <option value="tracked">Tracked Shipping</option>
+                        </select>
+                    </div>
+
                 </div>
             </div>
 

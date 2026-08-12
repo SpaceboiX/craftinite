@@ -19,5 +19,38 @@
       "base": 6.00,
       "perGram": 0.015
     }
+  },
+
+  "EU": {
+    "standard": {
+      "base": 3.00,
+      "perGram": 0.008
+    },
+    "tracked": {
+      "base": 5.00,
+      "perGram": 0.012
+    }
+  },
+
+  "Canada": {
+    "standard": {
+      "base": 4.50,
+      "perGram": 0.011
+    },
+    "tracked": {
+      "base": 6.50,
+      "perGram": 0.016
+    }
+  },
+
+  "Australia": {
+    "standard": {
+      "base": 5.00,
+      "perGram": 0.012
+    },
+    "tracked": {
+      "base": 7.50,
+      "perGram": 0.018
+    }
   }
 }
