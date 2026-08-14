@@ -3,7 +3,7 @@
     "name": "Deadpool Unicorn Coaster",
     "id": "DP01C",
     "type": "Coaster",
-    "price": 0.01,
+    "price": 5.00,
     "weight": 100,
     "description": "description",
     "tags": ["Marvel", "Deadpool"]
