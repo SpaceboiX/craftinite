@@ -90,32 +90,34 @@
 
     <!-- Search Bar -->
     <div class="row mb-3">
-        <div class="col">
+        <div class="col-12">
             <input id="search-input" type="text" class="form-control" placeholder="Search Craftinite...">
             <div id="active-tag-badge" class="active-tag-badge" style="display:none;"></div>
         </div>
     </div>
 
     <!-- Category Buttons -->
-    <div class="btn-group mb-4" role="group">
-        <button class="btn btn-outline-primary" data-category="All">All</button>
-        <button class="btn btn-outline-primary" data-category="3D Print">3D Prints</button>
-        <button class="btn btn-outline-primary" data-category="Mug">Mugs</button>
-        <button class="btn btn-outline-primary" data-category="Coaster">Coasters</button>
+    <div class="category-scroll mb-4">
+        <div class="btn-group d-flex flex-nowrap" role="group">
+            <button class="btn btn-outline-primary flex-fill" data-category="All">All</button>
+            <button class="btn btn-outline-primary flex-fill" data-category="3D Print">3D Prints</button>
+            <button class="btn btn-outline-primary flex-fill" data-category="Mug">Mugs</button>
+            <button class="btn btn-outline-primary flex-fill" data-category="Coaster">Coasters</button>
+        </div>
     </div>
 
     <!-- 3D Prints -->
     <section class="product-section gallery-mode" data-type="3D Print">
         <h2 class="mt-4">3D Prints</h2>
 
-        <div class="scroll-container">
-            <button class="scroll-btn gallery-left">&lt;</button>
+        <div class="scroll-container responsive-scroll">
+            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
 
             <div class="scroll-wrapper">
                 <div class="scroll-row" id="section-3dprints"></div>
             </div>
 
-            <button class="scroll-btn gallery-right">&gt;</button>
+            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
         </div>
 
         <div class="vertical-container" id="vertical-3dprints"></div>
@@ -125,14 +127,14 @@
     <section class="product-section gallery-mode" data-type="Mug">
         <h2 class="mt-4">Mugs</h2>
 
-        <div class="scroll-container">
-            <button class="scroll-btn gallery-left">&lt;</button>
+        <div class="scroll-container responsive-scroll">
+            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
 
             <div class="scroll-wrapper">
                 <div class="scroll-row" id="section-mugs"></div>
             </div>
 
-            <button class="scroll-btn gallery-right">&gt;</button>
+            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
         </div>
 
         <div class="vertical-container" id="vertical-mugs"></div>
@@ -142,14 +144,14 @@
     <section class="product-section gallery-mode" data-type="Coaster">
         <h2 class="mt-4">Coasters</h2>
 
-        <div class="scroll-container">
-            <button class="scroll-btn gallery-left">&lt;</button>
+        <div class="scroll-container responsive-scroll">
+            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
 
             <div class="scroll-wrapper">
                 <div class="scroll-row" id="section-coasters"></div>
             </div>
 
-            <button class="scroll-btn gallery-right">&gt;</button>
+            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
         </div>
 
         <div class="vertical-container" id="vertical-coasters"></div>
@@ -157,34 +159,25 @@
 
 </div>
 
-<!-- ⭐ CATEGORY FILTERING -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
     document.querySelectorAll("[data-category]").forEach(btn => {
         btn.addEventListener("click", () => {
             const cat = btn.dataset.category;
 
-            // Use the global allProducts loaded by products.js
             let list;
-
             if (cat === "All") {
                 list = allProducts;
             } else {
                 list = allProducts.filter(p => p.type === cat);
             }
 
-            // ⭐ Re-render products
             renderProducts(list);
-
-            // ⭐ Re-attach cart UI
             setupIndexCartButtons();
         });
     });
-
 });
 </script>
-
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/products.js"></script>
     <script src="assets/js/cart.js"></script>

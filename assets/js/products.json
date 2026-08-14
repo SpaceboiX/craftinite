@@ -1,21 +1,21 @@
 [
   {
-    "name": "Deadpool Unicorn Coaster",
+    "name": "Masked Hero Unicorn Coaster",
     "id": "DP01C",
     "type": "Coaster",
-    "price": 0.01,
+    "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Marvel", "Deadpool"]
+    "description": "A chaotic masked anti‑hero riding a glittery unicorn. Bright, silly, and guaranteed to add attitude to any drink.",
+    "tags": ["Marvel", "Sci-Fi", "Parody Hero", "Unicorn", "Humour"]
   },
   {
-    "name": "TARDIS Coaster",
+    "name": "Blue Time Box Coaster",
     "id": "DW01C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Doctor Who", "Blue Box", "TARDIS"]
+    "description": "A blue time‑travel police box design inspired by classic sci‑fi adventures. Clean, iconic, and instantly recognisable.",
+    "tags": ["Doctor Who", "Sci‑Fi", "Blue Box", "Time Travel"]
   },
   {
     "name": "Monsters Coaster",
@@ -23,61 +23,88 @@
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Doctor Who", "Monsters", "Dalek", "Silence", "Davros", "Cyberman", "Robot", "Sontaran", "Weeping Angel", "Zygon", "Ice Warrior", "Lizard", "Silurian"]
+    "description": "A collage of classic sci‑fi creatures: robots, mutants, stone statues, reptilian warriors, and more. A tribute to decades of alien villains.",
+    "tags": ["Doctor Who", "Sci‑Fi", "Monsters", "Aliens", "Robots"]
   },
   {
-    "name": "Cyberman Delete Coaster",
+    "name": "Silver Android Delete Coaster",
     "id": "DW03C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Doctor Who", "Cyberman", "Delete"]
+    "description": "A sleek silver android face paired with the word 'DELETE.' Minimalist, bold, and ideal for fans of retro sci‑fi robots.",
+    "tags": ["Doctor Who", "Sci‑Fi", "Android", "Robots"]
   },
   {
-    "name": "Weeping Angel Coaster",
+    "name": "SWeeping Statue Coaster",
     "id": "DW04C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Doctor Who", "Weeping Angel", "Dont Blink", "TARDIS", "Blue Box"]
+    "description": "A chilling stone statue silhouette with subtle blue‑box accents. Stylish, eerie, and perfect for lovers of time‑travel horror themes.",
+    "tags": ["Doctor Who", "Sci‑Fi", "Statue", "Horror"]
   },
   {
-    "name": "Dalek Exterminate Coaster",
+    "name": "Alien Tank Exterminate Coaster",
     "id": "DW05C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Doctor Who", "Dalek", "Exterminate"]
+    "description": "A powerful dome‑shaped alien machine shouting 'EXTERMINATE!' A fun tribute to one of sci‑fi’s most iconic villain archetypes.",
+    "tags": ["Doctor Who", "Sci‑Fi", "Alien Machine", "Villain", "Tank"]
   },
   {
-    "name": "LEGO Batman Coaster",
+    "name": "Brick Hero Coaster",
     "id": "LBM01C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["LEGO", "Batman"]
+    "description": "A blocky brick‑style caped hero striking a pose. Fun, colourful, and perfect for fans of parody‑style mini‑figure art.",
+    "tags": ["Brick Hero", "Parody", "Mini Figure"]
   },
   {
-    "name": "LEGO Batman Joker",
+    "name": "Brick Clown Villain Coaster",
     "id": "LBM02C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["LEGO", "Batman", "Joker"]
+    "description": "A brick‑style chaotic clown villain with a big grin. Bright, mischievous, and a great match for the hero coaster.",
+    "tags": ["Brick Villain", "Clown", "Mini Figure"]
   },
   {
-    "name": "Star Wars Mandalorian and Grogu Coaster",
+    "name": "Space Wanderer & Green Companion Coaster",
     "id": "SWML01C",
     "type": "Coaster",
     "price": 5.00,
     "weight": 100,
-    "description": "description",
-    "tags": ["Star Wars", "Mandalorian", "Grogu", "Baby Yoda"]
+    "description": "A lone space wanderer and his tiny green companion in a warm, stylised design. Soft colours and cosy vibes inspired by space‑western adventures.",
+    "tags": ["Star Wars", "Sci-Fi", "Space Wanderer", "Green Companion", "Space Western"]
+  },
+  {
+    "name": "Silverstone 2026 Mug",
+    "id": "SV01M",
+    "type": "Mug",
+    "price": 7.50,
+    "weight": 0,
+    "description": "Silverstone 2026 Mug",
+    "tags": []
+  },
+  {
+    "name": "Silverstone 2026 Mug",
+    "id": "SV02M",
+    "type": "Mug",
+    "price": 7.50,
+    "weight": 0,
+    "description": "Silverstone 2026 Mug",
+    "tags": []
+  },
+  {
+    "name": "FHMRacing Mug",
+    "id": "FHMR01M",
+    "type": "Mug",
+    "price": 7.50,
+    "weight": 0,
+    "description": "FHMRacing Mug",
+    "tags": []
   }
 ]

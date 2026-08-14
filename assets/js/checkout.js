@@ -1,5 +1,5 @@
 // -----------------------------
-// checkout.js - Shipping (country + method) + PayPal itemized cart
+// checkout.js - Shipping (country + method) + PayPal itemized cart + qty input
 // -----------------------------
 
 let shippingRules = {};
@@ -74,7 +74,13 @@ function loadCheckoutCart() {
 
                         <div class="checkout-qty mt-1">
                             <button class="btn btn-sm btn-secondary checkout-minus" data-id="${id}">-</button>
-                            <span class="mx-2">${qty}</span>
+
+                            <input type="number"
+                                   class="checkout-qty-input mx-2"
+                                   data-id="${id}"
+                                   value="${qty}"
+                                   min="1">
+
                             <button class="btn btn-sm btn-secondary checkout-plus" data-id="${id}">+</button>
                         </div>
 
@@ -113,6 +119,8 @@ function loadCheckoutCart() {
 
 // Quantity controls
 function setupCheckoutQtyControls() {
+
+    // Minus button
     document.querySelectorAll(".checkout-minus").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
@@ -130,6 +138,7 @@ function setupCheckoutQtyControls() {
         });
     });
 
+    // Plus button
     document.querySelectorAll(".checkout-plus").forEach(btn => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
@@ -138,6 +147,27 @@ function setupCheckoutQtyControls() {
             cart[id] = (cart[id] || 0) + 1;
 
             localStorage.setItem("cart", JSON.stringify(cart));
+            loadCheckoutCart();
+            updateCartHeader();
+        });
+    });
+
+    // Manual quantity input
+    document.querySelectorAll(".checkout-qty-input").forEach(input => {
+        input.addEventListener("change", () => {
+            const id = input.dataset.id;
+            let cart = JSON.parse(localStorage.getItem("cart") || "{}");
+
+            let newQty = parseInt(input.value, 10);
+
+            if (isNaN(newQty) || newQty < 1) {
+                newQty = 1;
+                input.value = 1;
+            }
+
+            cart[id] = newQty;
+            localStorage.setItem("cart", JSON.stringify(cart));
+
             loadCheckoutCart();
             updateCartHeader();
         });

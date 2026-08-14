@@ -26,7 +26,6 @@ function whenProductsLoaded(cb) {
         cb(window.allProducts);
         return;
     }
-    // Listen for the custom event
     window.addEventListener('products:loaded', function handler(e) {
         window.removeEventListener('products:loaded', handler);
         cb(window.allProducts);
@@ -44,38 +43,30 @@ function loadProducts() {
             return res.json();
         })
         .then(data => {
-            // assign to window.allProducts so other scripts can access it
             window.allProducts = Array.isArray(data) ? data : [];
 
-            // Render gallery only on pages that have the gallery containers
             renderProducts(window.allProducts);
 
-            // Only setup index cart buttons if product-actions exist
             if (document.querySelector('.product-actions')) {
                 setupIndexCartButtons();
             }
 
-            // Notify listeners that products are ready
             try {
                 window.dispatchEvent(new Event('products:loaded'));
             } catch (err) {
-                // fallback for older browsers
                 const evt = document.createEvent('Event');
                 evt.initEvent('products:loaded', true, true);
                 window.dispatchEvent(evt);
             }
 
-            // Now that products are loaded, update the cart header if available
             if (typeof updateCartHeader === 'function') {
                 try { updateCartHeader(); } catch (err) { console.warn('updateCartHeader error', err); }
             }
 
-            // If this is a product page, attempt to render the product details
             autoRenderProductPageIfPresent();
         })
         .catch(err => {
             console.error("Failed to load /assets/js/products.json:", err);
-            // still dispatch so pages can handle gracefully
             try {
                 window.dispatchEvent(new Event('products:loaded'));
             } catch (e) {
@@ -103,7 +94,7 @@ function getVerticalImage(product) {
 }
 
 /* -------------------------
-   Gallery rendering (defensive)
+   Gallery rendering
    ------------------------- */
 
 function renderProducts(products) {
@@ -115,7 +106,6 @@ function renderProducts(products) {
     const vertMugs = document.getElementById('vertical-mugs');
     const vertCoasters = document.getElementById('vertical-coasters');
 
-    // If none of the gallery containers exist, exit quietly
     if (!section3d && !sectionMugs && !sectionCoasters &&
         !vert3d && !vertMugs && !vertCoasters) {
         return;
@@ -145,7 +135,7 @@ function renderProducts(products) {
                         <span>${product.name}</span>
                     </div>
                 </div>
-                <p class="card-text">${product.description}</p>
+                <p class="product-card-description">${product.description}</p>
                 <p class="card-price">£${(product.price ?? 0).toFixed(2)}</p>
                 <div class="product-actions" data-product-id="${product.id}"></div>
             </div>
@@ -169,7 +159,7 @@ function renderProducts(products) {
                         <span>${product.name}</span>
                     </div>
                 </div>
-                <p class="card-text">${product.description}</p>
+                <p class="product-card-description">${product.description}</p>
                 <p class="card-price">£${(product.price ?? 0).toFixed(2)}</p>
                 <div class="product-actions" data-product-id="${product.id}"></div>
             </div>
@@ -204,7 +194,6 @@ function renderProducts(products) {
 
 /* -------------------------
    INDEX PAGE CART LOGIC
-   (unchanged but defensive)
    ------------------------- */
 
 function setupIndexCartButtons() {
@@ -239,57 +228,69 @@ function renderAddButton(container, id) {
 
 function renderQtySelector(container, id, qty) {
     container.innerHTML = `
-        <div class="quantity-selector">
+        <div class="quantity-selector d-flex align-items-center">
             <button class="btn btn-secondary minus">-</button>
-            <span class="qty">${qty}</span>
+
+            <input type="number"
+                   class="index-qty-input mx-2"
+                   data-id="${id}"
+                   value="${qty}"
+                   min="1">
+
             <button class="btn btn-secondary plus">+</button>
         </div>
     `;
+
     const minus = container.querySelector(".minus");
     const plus = container.querySelector(".plus");
-    const qtyDisplay = container.querySelector(".qty");
+    const input = container.querySelector(".index-qty-input");
 
-    if (minus) {
-        minus.addEventListener("click", (e) => {
-            e.stopPropagation();
-            let current = parseInt(qtyDisplay.textContent, 10);
-            if (current > 1) {
-                current--;
-                qtyDisplay.textContent = current;
-                updateCart(id, current);
-            } else {
-                showRemoveConfirmation(id, container);
-            }
-        });
-    }
-
-    if (plus) {
-        plus.addEventListener("click", (e) => {
-            e.stopPropagation();
-            let current = parseInt(qtyDisplay.textContent, 10);
-            current++;
-            qtyDisplay.textContent = current;
-            updateCart(id, current);
-        });
-    }
-}
-
-function showRemoveConfirmation(id, container) {
-    if (confirm("Remove this item from your basket?")) {
+    // Minus button
+    minus.addEventListener("click", (e) => {
+        e.stopPropagation();
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
-        delete cart[id];
+        let current = parseInt(input.value, 10);
+
+        if (current > 1) {
+            current--;
+            input.value = current;
+            updateCart(id, current);
+        } else {
+            delete cart[id];
+            localStorage.setItem("cart", JSON.stringify(cart));
+            if (typeof updateCartHeader === 'function') updateCartHeader();
+            renderAddButton(container, id);
+        }
+    });
+
+    // Plus button
+    plus.addEventListener("click", (e) => {
+        e.stopPropagation();
+        let current = parseInt(input.value, 10);
+        current++;
+        input.value = current;
+        updateCart(id, current);
+    });
+
+    // Manual input
+    input.addEventListener("change", () => {
+        let cart = JSON.parse(localStorage.getItem("cart") || "{}");
+        let newQty = parseInt(input.value, 10);
+
+        if (isNaN(newQty) || newQty < 1) {
+            newQty = 1;
+            input.value = 1;
+        }
+
+        cart[id] = newQty;
         localStorage.setItem("cart", JSON.stringify(cart));
+
         if (typeof updateCartHeader === 'function') updateCartHeader();
-        renderAddButton(container, id);
-    } else {
-        updateCart(id, 1);
-        const q = container.querySelector(".qty");
-        if (q) q.textContent = 1;
-    }
+    });
 }
 
 /* -------------------------
-   Scroll effect (defensive)
+   Scroll effect
    ------------------------- */
 
 const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
@@ -308,7 +309,7 @@ if (scrollWrappers && scrollWrappers.length) {
 }
 
 /* -------------------------
-   Product page rendering helpers
+   Product page rendering
    ------------------------- */
 
 function renderProductPage(productId) {
@@ -318,12 +319,11 @@ function renderProductPage(productId) {
         return;
     }
 
-    // Defensive selectors - update these IDs/classes to match your product.html
     const titleEl = document.querySelector('#product-title');
     const priceEl = document.querySelector('#product-price');
     const descEl = document.querySelector('#product-description');
     const imgEl = document.querySelector('#product-image');
-    const actionsEl = document.querySelector('#product-actions'); // container for add/qty
+    const actionsEl = document.querySelector('#product-actions');
 
     if (titleEl) titleEl.textContent = product.name || '';
     if (priceEl) priceEl.textContent = `£${(product.price ?? 0).toFixed(2)}`;
@@ -334,7 +334,6 @@ function renderProductPage(productId) {
         imgEl.setAttribute('alt', product.name || '');
     }
 
-    // Setup product page add/qty UI if container exists
     if (actionsEl) {
         const cart = JSON.parse(localStorage.getItem("cart") || "{}");
         if (cart[product.id]) {
@@ -346,11 +345,9 @@ function renderProductPage(productId) {
 }
 
 function autoRenderProductPageIfPresent() {
-    // If product page has an element with id 'product-page' or 'product-id', try to render
     const productPageRoot = document.getElementById('product-page') || document.querySelector('[data-product-page]');
     if (!productPageRoot) return;
 
-    // Try to get id from data attribute or URL param
     let id = productPageRoot.dataset.productId;
     if (!id) {
         const params = new URLSearchParams(window.location.search);
@@ -358,7 +355,6 @@ function autoRenderProductPageIfPresent() {
     }
     if (!id) return;
 
-    // If products already loaded, render immediately; otherwise wait
     if (Array.isArray(window.allProducts) && window.allProducts.length) {
         renderProductPage(id);
     } else {
