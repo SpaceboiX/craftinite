@@ -107,77 +107,37 @@
     </div>
 
     <!-- 3D Prints -->
-    <section class="product-section gallery-mode" data-type="3D Print">
+    <section class="product-section" data-type="3D Print">
         <h2 class="mt-4">3D Prints</h2>
-
-        <div class="scroll-container responsive-scroll">
-            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
-
-            <div class="scroll-wrapper">
-                <div class="scroll-row" id="section-3dprints"></div>
-            </div>
-
-            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
+        <div class="scroll-wrapper">
+            <div class="scroll-row" id="section-3dprints"></div>
         </div>
-
-        <div class="vertical-container" id="vertical-3dprints"></div>
     </section>
 
-    <!-- Ceramic Mugs -->
-    <section class="product-section gallery-mode" data-type="Mug">
+    <!-- Mugs -->
+    <section class="product-section" data-type="Mug">
         <h2 class="mt-4">Mugs</h2>
-
-        <div class="scroll-container responsive-scroll">
-            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
-
-            <div class="scroll-wrapper">
-                <div class="scroll-row" id="section-mugs"></div>
-            </div>
-
-            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
+        <div class="scroll-wrapper">
+            <div class="scroll-row" id="section-mugs"></div>
         </div>
-
-        <div class="vertical-container" id="vertical-mugs"></div>
     </section>
 
-    <!-- Ceramic Coasters -->
-    <section class="product-section gallery-mode" data-type="Coaster">
+    <!-- Coasters -->
+    <section class="product-section" data-type="Coaster">
         <h2 class="mt-4">Coasters</h2>
-
-        <div class="scroll-container responsive-scroll">
-            <button class="scroll-btn gallery-left d-none d-md-block">&lt;</button>
-
-            <div class="scroll-wrapper">
-                <div class="scroll-row" id="section-coasters"></div>
-            </div>
-
-            <button class="scroll-btn gallery-right d-none d-md-block">&gt;</button>
+        <div class="scroll-wrapper">
+            <div class="scroll-row" id="section-coasters"></div>
         </div>
-
-        <div class="vertical-container" id="vertical-coasters"></div>
     </section>
 
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("[data-category]").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const cat = btn.dataset.category;
-
-            let list;
-            if (cat === "All") {
-                list = allProducts;
-            } else {
-                list = allProducts.filter(p => p.type === cat);
-            }
-
-            renderProducts(list);
-            setupIndexCartButtons();
-        });
-    });
-});
-</script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/categories.js"></script>
+<script src="assets/js/tags.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/scroll.js"></script>
+<script src="assets/js/cart.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/products.js"></script>
     <script src="assets/js/cart.js"></script>

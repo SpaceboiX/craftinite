@@ -1,5 +1,5 @@
 // -------------------------
-// products.js (patched to expose window.allProducts)
+// products.js (Unified Hybrid Layout)
 // -------------------------
 
 window.allProducts = [];
@@ -26,7 +26,7 @@ function whenProductsLoaded(cb) {
         cb(window.allProducts);
         return;
     }
-    window.addEventListener('products:loaded', function handler(e) {
+    window.addEventListener('products:loaded', function handler() {
         window.removeEventListener('products:loaded', handler);
         cb(window.allProducts);
     });
@@ -46,10 +46,7 @@ function loadProducts() {
             window.allProducts = Array.isArray(data) ? data : [];
 
             renderProducts(window.allProducts);
-
-            if (document.querySelector('.product-actions')) {
-                setupIndexCartButtons();
-            }
+            setupIndexCartButtons();
 
             try {
                 window.dispatchEvent(new Event('products:loaded'));
@@ -87,14 +84,8 @@ function getGalleryImage(product) {
     return `assets/img/products/${folder}/${id}_1.webp`;
 }
 
-function getVerticalImage(product) {
-    const folder = normalizeFolder(product.type);
-    const id = normalizeId(product.id);
-    return `assets/img/products/${folder}/${id}_1.webp`;
-}
-
 /* -------------------------
-   Gallery rendering
+   Unified gallery rendering
    ------------------------- */
 
 function renderProducts(products) {
@@ -102,26 +93,12 @@ function renderProducts(products) {
     const sectionMugs = document.getElementById('section-mugs');
     const sectionCoasters = document.getElementById('section-coasters');
 
-    const vert3d = document.getElementById('vertical-3dprints');
-    const vertMugs = document.getElementById('vertical-mugs');
-    const vertCoasters = document.getElementById('vertical-coasters');
-
-    if (!section3d && !sectionMugs && !sectionCoasters &&
-        !vert3d && !vertMugs && !vertCoasters) {
-        return;
-    }
-
     if (section3d) section3d.innerHTML = '';
     if (sectionMugs) sectionMugs.innerHTML = '';
     if (sectionCoasters) sectionCoasters.innerHTML = '';
 
-    if (vert3d) vert3d.innerHTML = '';
-    if (vertMugs) vertMugs.innerHTML = '';
-    if (vertCoasters) vertCoasters.innerHTML = '';
-
     products.forEach(product => {
         const galleryImg = getGalleryImage(product);
-        const verticalImg = getVerticalImage(product);
 
         const galleryCard = document.createElement('div');
         galleryCard.className = 'card product-card';
@@ -147,48 +124,13 @@ function renderProducts(products) {
             }
         });
 
-        const verticalCard = document.createElement('div');
-        verticalCard.className = 'card product-card';
-        verticalCard.style.width = "240px";
-        verticalCard.innerHTML = `
-            <img src="${verticalImg}" class="card-img-top" alt="${product.name}">
-            <div class="card-body">
-                <div class="scroll-text-container">
-                    <div class="scroll-text">
-                        <span>${product.name}</span>
-                        <span>${product.name}</span>
-                    </div>
-                </div>
-                <p class="product-card-description">${product.description}</p>
-                <p class="card-price">£${(product.price ?? 0).toFixed(2)}</p>
-                <div class="product-actions" data-product-id="${product.id}"></div>
-            </div>
-        `;
-
-        verticalCard.addEventListener("click", (e) => {
-            if (!e.target.closest(".product-actions")) {
-                window.location.href = `product.html?id=${encodeURIComponent(product.id)}`;
-            }
-        });
-
         let galleryTarget = null;
-        let verticalTarget = null;
 
-        if (product.type === "3D Print") {
-            galleryTarget = section3d;
-            verticalTarget = vert3d;
-        }
-        if (product.type === "Mug") {
-            galleryTarget = sectionMugs;
-            verticalTarget = vertMugs;
-        }
-        if (product.type === "Coaster") {
-            galleryTarget = sectionCoasters;
-            verticalTarget = vertCoasters;
-        }
+        if (product.type === "3D Print") galleryTarget = section3d;
+        if (product.type === "Mug") galleryTarget = sectionMugs;
+        if (product.type === "Coaster") galleryTarget = sectionCoasters;
 
         if (galleryTarget) galleryTarget.appendChild(galleryCard);
-        if (verticalTarget) verticalTarget.appendChild(verticalCard);
     });
 }
 
@@ -245,7 +187,6 @@ function renderQtySelector(container, id, qty) {
     const plus = container.querySelector(".plus");
     const input = container.querySelector(".index-qty-input");
 
-    // Minus button
     minus.addEventListener("click", (e) => {
         e.stopPropagation();
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
@@ -263,7 +204,6 @@ function renderQtySelector(container, id, qty) {
         }
     });
 
-    // Plus button
     plus.addEventListener("click", (e) => {
         e.stopPropagation();
         let current = parseInt(input.value, 10);
@@ -272,7 +212,6 @@ function renderQtySelector(container, id, qty) {
         updateCart(id, current);
     });
 
-    // Manual input
     input.addEventListener("change", () => {
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
         let newQty = parseInt(input.value, 10);
@@ -286,25 +225,6 @@ function renderQtySelector(container, id, qty) {
         localStorage.setItem("cart", JSON.stringify(cart));
 
         if (typeof updateCartHeader === 'function') updateCartHeader();
-    });
-}
-
-/* -------------------------
-   Scroll effect
-   ------------------------- */
-
-const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
-if (scrollWrappers && scrollWrappers.length) {
-    scrollWrappers.forEach(wrapper => {
-        const row = wrapper.querySelector('.scroll-row');
-        if (!row) return;
-        wrapper.addEventListener('scroll', () => {
-            if (wrapper.scrollLeft > 10) {
-                row.classList.add('scrolling');
-            } else {
-                row.classList.remove('scrolling');
-            }
-        });
     });
 }
 

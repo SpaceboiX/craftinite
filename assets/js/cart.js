@@ -4,7 +4,6 @@
 function updateCartHeader() {
     const cart = JSON.parse(localStorage.getItem("cart") || "{}");
 
-    // Find elements inside the ACTUAL navbar
     const navbar = document.querySelector("nav.navbar");
     if (!navbar) return;
 
@@ -14,11 +13,9 @@ function updateCartHeader() {
 
     if (!countEl || !preview || !totalEl) return;
 
-    // Update count
     const count = Object.values(cart).reduce((a, b) => a + b, 0);
     countEl.textContent = count;
 
-    // Update preview
     preview.innerHTML = "";
     let total = 0;
 
@@ -50,16 +47,11 @@ function updateCartHeader() {
     totalEl.textContent = total.toFixed(2);
 }
 
-// Ensure cart updates when products become available
 function onProductsLoadedUpdateCart() {
     try { updateCartHeader(); } catch (e) { console.warn('updateCartHeader failed after products:loaded', e); }
 }
 window.addEventListener('products:loaded', onProductsLoadedUpdateCart, { once: true });
 
-
-// -----------------------------
-// Update cart quantities
-// -----------------------------
 function updateCart(id, qty) {
     let cart = JSON.parse(localStorage.getItem("cart") || "{}");
     cart[id] = qty;
@@ -67,5 +59,4 @@ function updateCart(id, qty) {
     try { updateCartHeader(); } catch (e) { console.warn('updateCartHeader error on updateCart', e); }
 }
 
-// Initial attempt to update header (safe if products not yet loaded)
 try { updateCartHeader(); } catch (e) { /* ignore */ }
