@@ -187,6 +187,7 @@ function renderQtySelector(container, id, qty) {
     const plus = container.querySelector(".plus");
     const input = container.querySelector(".index-qty-input");
 
+    // ⭐ Remove item instantly when qty hits 0 (no prompt)
     minus.addEventListener("click", (e) => {
         e.stopPropagation();
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
@@ -204,6 +205,7 @@ function renderQtySelector(container, id, qty) {
         }
     });
 
+    // ⭐ Plus button
     plus.addEventListener("click", (e) => {
         e.stopPropagation();
         let current = parseInt(input.value, 10);
@@ -212,6 +214,7 @@ function renderQtySelector(container, id, qty) {
         updateCart(id, current);
     });
 
+    // ⭐ Allow typing quantity directly
     input.addEventListener("change", () => {
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
         let newQty = parseInt(input.value, 10);
@@ -254,6 +257,32 @@ function renderProductPage(productId) {
         imgEl.setAttribute('alt', product.name || '');
     }
 
+    // -----------------------------
+    // Dynamic Meta Tags (Discord / Twitter)
+    // -----------------------------
+    const ogTitle   = document.querySelector('meta[property="og:title"]');
+    const ogDesc    = document.querySelector('meta[property="og:description"]');
+    const ogImage   = document.querySelector('meta[property="og:image"]');
+    const ogUrl     = document.querySelector('meta[property="og:url"]');
+
+    const twTitle   = document.querySelector('meta[name="twitter:title"]');
+    const twDesc    = document.querySelector('meta[name="twitter:description"]');
+    const twImage   = document.querySelector('meta[name="twitter:image"]');
+
+    const imgSrc = getGalleryImage(product);
+
+    if (ogTitle) ogTitle.setAttribute("content", product.name);
+    if (ogDesc)  ogDesc.setAttribute("content", product.description);
+    if (ogImage) ogImage.setAttribute("content", imgSrc);
+    if (ogUrl)   ogUrl.setAttribute("content", window.location.href);
+
+    if (twTitle) twTitle.setAttribute("content", product.name);
+    if (twDesc)  twDesc.setAttribute("content", product.description);
+    if (twImage) twImage.setAttribute("content", imgSrc);
+
+    // -----------------------------
+    // Cart buttons
+    // -----------------------------
     if (actionsEl) {
         const cart = JSON.parse(localStorage.getItem("cart") || "{}");
         if (cart[product.id]) {

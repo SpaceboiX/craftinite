@@ -118,72 +118,73 @@ function renderProductQtySelector(id, qty) {
     if (!container) return;
 
     container.innerHTML = `
-        <div class="quantity-selector">
+        <div class="quantity-selector d-flex align-items-center">
             <button class="btn btn-secondary minus">-</button>
-            <span class="qty">${qty}</span>
+
+            <input type="number"
+                   class="index-qty-input mx-2"
+                   value="${qty}"
+                   min="1">
+
             <button class="btn btn-secondary plus">+</button>
         </div>
     `;
 
     const minus = container.querySelector(".minus");
     const plus = container.querySelector(".plus");
-    const qtyDisplay = container.querySelector(".qty");
+    const input = container.querySelector(".index-qty-input");
 
-    if (minus) {
-        minus.addEventListener("click", (e) => {
-            e.stopPropagation();
+    minus.addEventListener("click", (e) => {
+        e.stopPropagation();
+        let current = parseInt(input.value, 10);
 
-            let current = parseInt(qtyDisplay.textContent, 10);
-
-            if (current > 1) {
-                current--;
-                qtyDisplay.textContent = current;
-                updateCart(id, current);
-            } else {
-                showRemoveConfirmation(id, container);
-            }
-        });
-    }
-
-    if (plus) {
-        plus.addEventListener("click", (e) => {
-            e.stopPropagation();
-
-            let current = parseInt(qtyDisplay.textContent, 10);
-            current++;
-            qtyDisplay.textContent = current;
+        if (current > 1) {
+            current--;
+            input.value = current;
             updateCart(id, current);
-        });
-    }
+        } else {
+            showRemoveConfirmation(id, container);
+        }
+    });
+
+    plus.addEventListener("click", (e) => {
+        e.stopPropagation();
+        let current = parseInt(input.value, 10);
+        current++;
+        input.value = current;
+        updateCart(id, current);
+    });
+
+    input.addEventListener("change", () => {
+        let newQty = parseInt(input.value, 10);
+
+        if (isNaN(newQty) || newQty < 1) {
+            newQty = 1;
+            input.value = 1;
+        }
+
+        updateCart(id, newQty);
+    });
 }
 
 function showRemoveConfirmation(id, container) {
-    if (confirm("Remove this item from your basket?")) {
-        let cart = JSON.parse(localStorage.getItem("cart") || "{}");
-        delete cart[id];
-        localStorage.setItem("cart", JSON.stringify(cart));
-        try { updateCartHeader(); } catch (e) { /* ignore */ }
+    let cart = JSON.parse(localStorage.getItem("cart") || "{}");
+    delete cart[id];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    try { updateCartHeader(); } catch (e) {}
 
-        // Restore Add to Cart button
-        container.innerHTML = `
-            <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
-        `;
+    container.innerHTML = `
+        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+    `;
 
-        const btn = container.querySelector(".add-to-cart-btn");
-        if (btn) {
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                cart[id] = 1;
-                localStorage.setItem("cart", JSON.stringify(cart));
-                try { updateCartHeader(); } catch (e) { /* ignore */ }
-                renderProductQtySelector(id, 1);
-            });
-        }
-
-    } else {
-        // User said no → restore quantity to 1
-        updateCart(id, 1);
-        const q = container.querySelector(".qty");
-        if (q) q.textContent = 1;
+    const btn = container.querySelector(".add-to-cart-btn");
+    if (btn) {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            cart[id] = 1;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            try { updateCartHeader(); } catch (e) {}
+            renderProductQtySelector(id, 1);
+        });
     }
 }
