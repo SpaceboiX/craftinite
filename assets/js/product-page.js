@@ -188,3 +188,34 @@ function showRemoveConfirmation(id, container) {
         });
     }
 }
+
+// -----------------------------
+// Dynamic Meta Tags (Discord / Twitter)
+// -----------------------------
+const ogTitle   = document.querySelector('meta[property="og:title"]');
+const ogDesc    = document.querySelector('meta[property="og:description"]');
+const ogImage   = document.querySelector('meta[property="og:image"]');
+const ogUrl     = document.querySelector('meta[property="og:url"]');
+
+const twTitle   = document.querySelector('meta[name="twitter:title"]');
+const twDesc    = document.querySelector('meta[name="twitter:description"]');
+const twImage   = document.querySelector('meta[name="twitter:image"]');
+
+// Use your existing image helper if available
+let imgSrc = "";
+try {
+    imgSrc = (typeof getGalleryImage === "function")
+        ? getGalleryImage(product)
+        : `assets/img/products/${String(product.type).toLowerCase().replace(/\s+/g,'')}/${String(product.id).toLowerCase()}_1.webp`;
+} catch {
+    imgSrc = "";
+}
+
+if (ogTitle) ogTitle.setAttribute("content", product.name);
+if (ogDesc)  ogDesc.setAttribute("content", product.description);
+if (ogImage) ogImage.setAttribute("content", imgSrc);
+if (ogUrl)   ogUrl.setAttribute("content", window.location.href);
+
+if (twTitle) twTitle.setAttribute("content", product.name);
+if (twDesc)  twDesc.setAttribute("content", product.description);
+if (twImage) twImage.setAttribute("content", imgSrc);
