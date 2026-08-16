@@ -16,7 +16,9 @@ function initProductPage(products) {
         return;
     }
 
+    // -----------------------------
     // Update text
+    // -----------------------------
     const h1 = document.querySelector("h1");
     if (h1) h1.textContent = product.name;
 
@@ -29,10 +31,44 @@ function initProductPage(products) {
     const descEl = document.querySelector(".description");
     if (descEl) descEl.textContent = product.description;
 
+    // -----------------------------
+    // ⭐ Dynamic Meta Tags (Discord / Twitter)
+    // -----------------------------
+    const ogTitle   = document.querySelector('meta[property="og:title"]');
+    const ogDesc    = document.querySelector('meta[property="og:description"]');
+    const ogImage   = document.querySelector('meta[property="og:image"]');
+    const ogUrl     = document.querySelector('meta[property="og:url"]');
+
+    const twTitle   = document.querySelector('meta[name="twitter:title"]');
+    const twDesc    = document.querySelector('meta[name="twitter:description"]');
+    const twImage   = document.querySelector('meta[name="twitter:image"]');
+
+    let imgSrc = "";
+    try {
+        imgSrc = (typeof getGalleryImage === "function")
+            ? getGalleryImage(product)
+            : `assets/img/products/${String(product.type).toLowerCase().replace(/\s+/g,'')}/${String(product.id).toLowerCase()}_1.webp`;
+    } catch {
+        imgSrc = "";
+    }
+
+    if (ogTitle) ogTitle.setAttribute("content", product.name);
+    if (ogDesc)  ogDesc.setAttribute("content", product.description);
+    if (ogImage) ogImage.setAttribute("content", imgSrc);
+    if (ogUrl)   ogUrl.setAttribute("content", window.location.href);
+
+    if (twTitle) twTitle.setAttribute("content", product.name);
+    if (twDesc)  twDesc.setAttribute("content", product.description);
+    if (twImage) twImage.setAttribute("content", imgSrc);
+
+    // -----------------------------
     // Build image carousel
+    // -----------------------------
     buildCarousel(product);
 
+    // -----------------------------
     // Setup cart button
+    // -----------------------------
     setupCart(product);
 }
 
@@ -47,7 +83,6 @@ function buildCarousel(product) {
     let index = 1;
 
     function tryLoad() {
-        // Use the shared helpers if available, otherwise fallback to simple normalization
         const folder = (typeof normalizeFolder === 'function') ? normalizeFolder(product.type) : String(product.type || '').toLowerCase().replace(/\s+/g, '');
         const id = (typeof normalizeId === 'function') ? normalizeId(product.id) : String(product.id || '').toLowerCase();
 
@@ -72,7 +107,7 @@ function buildCarousel(product) {
         };
 
         img.onerror = () => {
-            // stop loading further images when one fails (assumes sequential naming)
+            // stop loading further images when one fails
         };
     }
 
@@ -83,8 +118,9 @@ function setupCart(product) {
     const btn = document.querySelector(".add-to-cart-btn");
     if (!btn) return;
 
-    // If already in cart, show quantity selector immediately
     let cart = JSON.parse(localStorage.getItem("cart") || "{}");
+
+    // Already in cart → show quantity selector
     if (cart[product.id]) {
         renderProductQtySelector(product.id, cart[product.id]);
         return;
@@ -93,7 +129,6 @@ function setupCart(product) {
     // Otherwise show Add to Cart button
     btn.addEventListener("click", (e) => {
         e.stopPropagation();
-
         updateCart(product.id, 1);
         renderProductQtySelector(product.id, 1);
     });
@@ -103,7 +138,7 @@ function updateCart(id, qty) {
     let cart = JSON.parse(localStorage.getItem("cart") || "{}");
     cart[id] = qty;
     localStorage.setItem("cart", JSON.stringify(cart));
-    try { updateCartHeader(); } catch (e) { /* ignore if header not present */ }
+    try { updateCartHeader(); } catch (e) {}
 }
 
 function updateCartHeader() {
@@ -188,34 +223,3 @@ function showRemoveConfirmation(id, container) {
         });
     }
 }
-
-// -----------------------------
-// Dynamic Meta Tags (Discord / Twitter)
-// -----------------------------
-const ogTitle   = document.querySelector('meta[property="og:title"]');
-const ogDesc    = document.querySelector('meta[property="og:description"]');
-const ogImage   = document.querySelector('meta[property="og:image"]');
-const ogUrl     = document.querySelector('meta[property="og:url"]');
-
-const twTitle   = document.querySelector('meta[name="twitter:title"]');
-const twDesc    = document.querySelector('meta[name="twitter:description"]');
-const twImage   = document.querySelector('meta[name="twitter:image"]');
-
-// Use your existing image helper if available
-let imgSrc = "";
-try {
-    imgSrc = (typeof getGalleryImage === "function")
-        ? getGalleryImage(product)
-        : `assets/img/products/${String(product.type).toLowerCase().replace(/\s+/g,'')}/${String(product.id).toLowerCase()}_1.webp`;
-} catch {
-    imgSrc = "";
-}
-
-if (ogTitle) ogTitle.setAttribute("content", product.name);
-if (ogDesc)  ogDesc.setAttribute("content", product.description);
-if (ogImage) ogImage.setAttribute("content", imgSrc);
-if (ogUrl)   ogUrl.setAttribute("content", window.location.href);
-
-if (twTitle) twTitle.setAttribute("content", product.name);
-if (twDesc)  twDesc.setAttribute("content", product.description);
-if (twImage) twImage.setAttribute("content", imgSrc);
