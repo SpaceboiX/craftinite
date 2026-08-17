@@ -19,26 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function filterByCategory(category) {
-    activeCategory = category;
-
-    const productsList = Array.isArray(window.allProducts) ? window.allProducts : [];
-
-    let list = (category === "All")
-        ? productsList
-        : productsList.filter(p => p.type === category);
-
-    renderProducts(list);
-    setupIndexCartButtons();
-
-    const sections = document.querySelectorAll('.product-section');
-
-    if (category === "All") {
-        sections.forEach(sec => sec.style.display = 'block');
-        return;
-    }
-
-    sections.forEach(sec => {
-        const type = sec.getAttribute('data-type');
-        sec.style.display = (type === category) ? 'block' : 'none';
-    });
+    window.activeCategory = category;
+    applyFilters();
 }

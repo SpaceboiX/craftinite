@@ -1,4 +1,37 @@
 [
+
+  { "_comment": "MUGS" },
+
+  {
+    "name": "Silverstone 2026 Mug",
+    "id": "SV01M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Silverstone 2026 Mug",
+    "tags": []
+  },
+  {
+    "name": "Silverstone 2026 Mug",
+    "id": "SV02M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Silverstone 2026 Mug",
+    "tags": []
+  },
+  {
+    "name": "FHMRacing Mug",
+    "id": "FHMR01M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "FHMRacing Mug",
+    "tags": []
+  },
+
+  { "_comment": "COASTERS" },
+
   {
     "name": "Masked Hero Unicorn Coaster",
     "id": "DP01C",
@@ -81,30 +114,30 @@
     "tags": ["Star Wars", "Sci-Fi", "Space Wanderer", "Green Companion", "Space Western"]
   },
   {
-    "name": "Silverstone 2026 Mug",
-    "id": "SV01M",
-    "type": "Mug",
-    "price": 6.00,
-    "weight": 0,
-    "description": "Silverstone 2026 Mug",
-    "tags": []
+    "name": "Alien Ally Scout Bot Coaster",
+    "id": "TRM01C",
+    "type": "Coaster",
+    "price": 3.00,
+    "weight": 100,
+    "description": "A bright yellow armored robot releasing a burst of blue energy, set against a dynamic comic‑style city backdrop. Bold colours and high‑action sci‑fi vibes.",
+    "tags": ["Transformers", "Sci-Fi", "Robot", "Scout"]
   },
   {
-    "name": "Silverstone 2026 Mug",
-    "id": "SV02M",
-    "type": "Mug",
-    "price": 6.00,
-    "weight": 0,
-    "description": "Silverstone 2026 Mug",
-    "tags": []
+    "name": "Alien Enemy Leader Bot Coaster",
+    "id": "TRM02C",
+    "type": "Coaster",
+    "price": 3.00,
+    "weight": 100,
+    "description": "A towering silver-and-purple armored robot unleashing a burst of energy amid a burning cityscape. Dramatic sci‑fi destruction with a powerful mechanical villain aesthetic.",
+    "tags": ["Transformers", "Sci-Fi", "Robot", "Leader"]
   },
   {
-    "name": "FHMRacing Mug",
-    "id": "FHMR01M",
-    "type": "Mug",
-    "price": 6.00,
-    "weight": 0,
-    "description": "FHMRacing Mug",
-    "tags": []
+    "name": "Alien Ally Leader Bot Coaster",
+    "id": "TRM03C",
+    "type": "Coaster",
+    "price": 3.00,
+    "weight": 100,
+    "description": "A bold red‑and‑blue armored robot with a heroic stance, set against a vibrant starburst backdrop. Strong colours and classic sci‑fi leader energy.",
+    "tags": ["Transformers", "Sci-Fi", "Robot", "Leader", "Prime"]
   }
 ]

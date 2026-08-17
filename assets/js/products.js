@@ -3,6 +3,9 @@
 // -------------------------
 
 window.allProducts = [];
+window.activeTag = null; // ⭐ ensure tag is globally accessible
+window.activeCategory = "All";
+window.searchQuery = "";
 
 function normalizeFolder(type) {
     return String(type || '').toLowerCase().replace(/\s+/g, '');
@@ -84,6 +87,39 @@ function getGalleryImage(product) {
     return `assets/img/products/${folder}/${id}_1.webp`;
 }
 
+function applyFilters() {
+    let filtered = window.allProducts;
+
+    // Category filter
+    if (window.activeCategory && window.activeCategory !== "All") {
+        filtered = filtered.filter(p => p.type === window.activeCategory);
+        document.body.classList.add("vertical-active");
+    } else {
+        document.body.classList.remove("vertical-active");
+    }
+
+    // Tag filter
+    if (window.activeTag) {
+        filtered = filtered.filter(p => p.tags && p.tags.includes(window.activeTag));
+    }
+
+    // Search filter
+    if (window.searchQuery) {
+        const q = window.searchQuery.toLowerCase();
+        filtered = filtered.filter(p => {
+            const fields = [
+                p.name || "",
+                p.description || "",
+                ...(p.tags || [])
+            ].join(" ").toLowerCase();
+            return fields.includes(q);
+        });
+    }
+
+    renderProducts(filtered);
+    setupIndexCartButtons();
+}
+
 /* -------------------------
    Unified gallery rendering
    ------------------------- */
@@ -92,6 +128,14 @@ function renderProducts(products) {
     const section3d = document.getElementById('section-3dprints');
     const sectionMugs = document.getElementById('section-mugs');
     const sectionCoasters = document.getElementById('section-coasters');
+    
+    const vertical3d = document.getElementById('vertical-3dprints');
+    const verticalMugs = document.getElementById('vertical-mugs');
+    const verticalCoasters = document.getElementById('vertical-coasters');
+
+    if (vertical3d) vertical3d.innerHTML = '';
+    if (verticalMugs) verticalMugs.innerHTML = '';
+    if (verticalCoasters) verticalCoasters.innerHTML = '';
 
     if (section3d) section3d.innerHTML = '';
     if (sectionMugs) sectionMugs.innerHTML = '';
@@ -131,6 +175,11 @@ function renderProducts(products) {
         if (product.type === "Coaster") galleryTarget = sectionCoasters;
 
         if (galleryTarget) galleryTarget.appendChild(galleryCard);
+
+        // Vertical grid population
+        if (product.type === "3D Print" && vertical3d) vertical3d.appendChild(galleryCard.cloneNode(true));
+        if (product.type === "Mug" && verticalMugs) verticalMugs.appendChild(galleryCard.cloneNode(true));
+        if (product.type === "Coaster" && verticalCoasters) verticalCoasters.appendChild(galleryCard.cloneNode(true));
     });
 }
 
@@ -187,7 +236,6 @@ function renderQtySelector(container, id, qty) {
     const plus = container.querySelector(".plus");
     const input = container.querySelector(".index-qty-input");
 
-    // ⭐ Remove item instantly when qty hits 0 (no prompt)
     minus.addEventListener("click", (e) => {
         e.stopPropagation();
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
@@ -205,7 +253,6 @@ function renderQtySelector(container, id, qty) {
         }
     });
 
-    // ⭐ Plus button
     plus.addEventListener("click", (e) => {
         e.stopPropagation();
         let current = parseInt(input.value, 10);
@@ -214,7 +261,6 @@ function renderQtySelector(container, id, qty) {
         updateCart(id, current);
     });
 
-    // ⭐ Allow typing quantity directly
     input.addEventListener("change", () => {
         let cart = JSON.parse(localStorage.getItem("cart") || "{}");
         let newQty = parseInt(input.value, 10);
@@ -256,41 +302,6 @@ function renderProductPage(productId) {
         imgEl.setAttribute('src', src);
         imgEl.setAttribute('alt', product.name || '');
     }
-
-    // -----------------------------
-    // Dynamic Meta Tags (Discord / Twitter)
-    // -----------------------------
-    const ogTitle   = document.querySelector('meta[property="og:title"]');
-    const ogDesc    = document.querySelector('meta[property="og:description"]');
-    const ogImage   = document.querySelector('meta[property="og:image"]');
-    const ogUrl     = document.querySelector('meta[property="og:url"]');
-
-    const twTitle   = document.querySelector('meta[name="twitter:title"]');
-    const twDesc    = document.querySelector('meta[name="twitter:description"]');
-    const twImage   = document.querySelector('meta[name="twitter:image"]');
-
-    const imgSrc = getGalleryImage(product);
-
-    if (ogTitle) ogTitle.setAttribute("content", product.name);
-    if (ogDesc)  ogDesc.setAttribute("content", product.description);
-    if (ogImage) ogImage.setAttribute("content", imgSrc);
-    if (ogUrl)   ogUrl.setAttribute("content", window.location.href);
-
-    if (twTitle) twTitle.setAttribute("content", product.name);
-    if (twDesc)  twDesc.setAttribute("content", product.description);
-    if (twImage) twImage.setAttribute("content", imgSrc);
-
-    // -----------------------------
-    // Cart buttons
-    // -----------------------------
-    if (actionsEl) {
-        const cart = JSON.parse(localStorage.getItem("cart") || "{}");
-        if (cart[product.id]) {
-            renderQtySelector(actionsEl, product.id, cart[product.id]);
-        } else {
-            renderAddButton(actionsEl, product.id);
-        }
-    }
 }
 
 function autoRenderProductPageIfPresent() {
@@ -310,6 +321,36 @@ function autoRenderProductPageIfPresent() {
         whenProductsLoaded(() => renderProductPage(id));
     }
 }
+
+/* -------------------------
+   Category + Tag Filtering (FINAL FIX)
+   ------------------------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-category]").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const cat = btn.dataset.category;
+
+            document.body.classList.remove("vertical-active");
+
+            let filtered = window.allProducts;
+
+            // Category filter
+            if (cat !== "All") {
+                document.body.classList.add("vertical-active");
+                filtered = filtered.filter(p => p.type === cat);
+            }
+
+            // ⭐ Tag filter (fix)
+            if (window.activeTag) {
+                filtered = filtered.filter(p => p.tags && p.tags.includes(window.activeTag));
+            }
+
+            renderProducts(filtered);
+            setupIndexCartButtons();
+        });
+    });
+});
 
 /* -------------------------
    Start loading

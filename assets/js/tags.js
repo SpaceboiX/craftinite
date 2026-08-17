@@ -12,15 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const badge = document.getElementById('active-tag-badge');
     if (badge) {
         badge.addEventListener('click', () => {
-            activeTag = null;
+            window.activeTag = null;
             badge.style.display = 'none';
-
-            const productsList = Array.isArray(window.allProducts) ? window.allProducts : [];
-            renderProducts(productsList);
-            setupIndexCartButtons();
-
-            const sections = document.querySelectorAll('.product-section');
-            sections.forEach(sec => sec.style.display = 'block');
+            applyFilters();
         });
     }
 });
@@ -33,16 +27,6 @@ function showActiveTagBadge(tag) {
 }
 
 function filterByTag(tag) {
-    const productsList = Array.isArray(window.allProducts) ? window.allProducts : [];
-    const filtered = productsList.filter(p => p.tags && p.tags.includes(tag));
-
-    renderProducts(filtered);
-    setupIndexCartButtons();
-
-    const sections = document.querySelectorAll('.product-section');
-    sections.forEach(sec => {
-        const type = sec.getAttribute('data-type');
-        const hasType = filtered.some(p => p.type === type);
-        sec.style.display = hasType ? 'block' : 'none';
-    });
+    window.activeTag = tag;
+    applyFilters();
 }
