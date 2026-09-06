@@ -3,37 +3,109 @@
   { "_comment": "MUGS" },
 
   {
-    "name": "Silverstone 2026 Mug",
-    "id": "SV01M",
+    "name": "Masked Anti-Hero Unicorn Mug",
+    "id": "DP01M",
     "type": "Mug",
     "price": 6.00,
     "weight": 0,
-    "description": "Silverstone 2026 Mug",
-    "tags": []
+    "description": "A chaotic masked anti‑hero riding a glittery unicorn. Bright, silly, and guaranteed to add attitude to any drink.",
+    "tags": ["Marvel", "Sci-Fi", "Parody Hero", "Unicorn", "Humour"]
   },
   {
-    "name": "Silverstone 2026 Mug",
-    "id": "SV02M",
+    "name": "Masked Anti-Hero Unicorn Mug",
+    "id": "DP01WM",
     "type": "Mug",
     "price": 6.00,
     "weight": 0,
-    "description": "Silverstone 2026 Mug",
-    "tags": []
+    "description": "A chaotic masked anti‑hero riding a glittery unicorn with a serious yellow geezer jousting on a horse. Bright, silly, and guaranteed to add attitude to any drink.",
+    "tags": ["Marvel", "Sci-Fi", "Parody Hero", "Unicorn", "Serious", "Humour"]
   },
   {
-    "name": "FHMRacing Mug",
-    "id": "FHMR01M",
+    "name": "Police Box Vortex Mug",
+    "id": "DW01M",
     "type": "Mug",
     "price": 6.00,
     "weight": 0,
-    "description": "FHMRacing Mug",
-    "tags": []
+    "description": "Wibbly wobbly timey wimey.",
+    "tags": ["Doctor Who", "Sci-Fi", "Vortex", "Police Box"]
   },
-
+  {
+    "name": "Worlds Collide Mug",
+    "id": "DW02M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Worlds Collide where one alien race meets another.",
+    "tags": ["Doctor Who", "Sci-Fi", "Vortex", "Alien", "Collide", "Dimension"]
+  },
+  {
+    "name": "Alien Military Mug",
+    "id": "DW03WM",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Take glory in every sip.",
+    "tags": ["Doctor Who", "Sci-Fi", "Alien", "Military", "War"]
+  },
+  {
+    "name": "Alien Police Mug",
+    "id": "DW04M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Shadow Proclomation deems you worthy for a sip.",
+    "tags": ["Doctor Who", "Sci-Fi", "Alien", "Police"]
+  },
+  {
+    "name": "Caffeinate Mug",
+    "id": "DW05M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Would you like a cup of tea?",
+    "tags": ["Doctor Who", "Sci-Fi", "Alien", "Caffeine"]
+  },
+  {
+    "name": "Don't Blink Mug",
+    "id": "DW06M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Blink and your coffee is gone.",
+    "tags": ["Doctor Who", "Sci-Fi", "Don't Blink", "Statue"]
+  },
+  {
+    "name": "Bounty Hunter Baby Alien Mug",
+    "id": "SWML01M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "Crossing the galaxy to protect an Alien Child.",
+    "tags": ["Star Wars", "Sci-Fi", "Alien", "Bounty"]
+  },
+  {
+    "name": "Alien Enemy Leader Bot vs Alien Ally Leader Bot Mug",
+    "id": "TRM01M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "One must stand, and one must fall!",
+    "tags": ["Transformers", "Sci-Fi", "Alien", "Robot", "Fight"]
+  },
+  {
+    "name": "Alien Ally Scout Bot Mug vs Alien Enemy Leader Bot",
+    "id": "TRM02M",
+    "type": "Mug",
+    "price": 6.00,
+    "weight": 0,
+    "description": "One must stand, and one must fall!",
+    "tags": ["Transformers", "Sci-Fi", "Alien", "Robot", "Fight"]
+  },
+    
   { "_comment": "COASTERS" },
 
   {
-    "name": "Masked Hero Unicorn Coaster",
+    "name": "Masked Anti-Hero Unicorn Coaster",
     "id": "DP01C",
     "type": "Coaster",
     "price": 3.00,
