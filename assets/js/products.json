@@ -12,8 +12,8 @@
     "tags": ["Marvel", "Sci-Fi", "Parody Hero", "Unicorn", "Humour"]
   },
   {
-    "name": "Masked Anti-Hero Unicorn Mug",
-    "id": "DP01WM",
+    "name": "Masked Anti-Hero Unicorn Mug vs Masked Yellow Serious Man",
+    "id": "DPW01M",
     "type": "Mug",
     "price": 6.00,
     "weight": 0,
@@ -40,7 +40,7 @@
   },
   {
     "name": "Alien Military Mug",
-    "id": "DW03WM",
+    "id": "DW03M",
     "type": "Mug",
     "price": 6.00,
     "weight": 0,
